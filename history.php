@@ -14,7 +14,7 @@ elseif(!isset($_COOKIE['username'])){
 if($_COOKIE['username']!=$admin){ header('Location: login.php');}
 
 ////////Delete
-if(isset($_POST['delete_dev'])){
+if(isset($_GET['id'])){
 
     class MyDB1 extends SQLite3
     {
@@ -30,17 +30,12 @@ if(isset($_POST['delete_dev'])){
         echo $db->lastErrorMsg();
 
     } else {
-
+$devid=$_GET['id'];
         $sql ='SELECT * from DEVICES;';
         $ret = $db->query($sql);
         while($row = $ret->fetchArray(SQLITE3_ASSOC)){
-        $existing_device=$row["DEVICE"];
-        $existing_user=$row["USERNAME"];
-        $activation_code=$row["ACTIVATION_CODE"];
-  if(isset($_POST['delete_dev'])){
-  $delete_dev = $_POST['delete_dev'];
-  $username = $_COOKIE['username'];
-                $sql ='DELETE from DEVICES where DEVICE="'.$delete_dev.'"';
+ 
+                    $sql ='UPDATE DEVICES SET READ="0" WHERE DEVICE="'.$devid.'"';
 
       }
     }

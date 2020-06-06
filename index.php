@@ -379,6 +379,8 @@ $existing_mail=str_replace(",","<br>",$existing_mail);
 	$description=$row['DESCRIPTION'];
 	$signal=$row['SIGNAL'];
     $date=$row['DATE'];
+    $read=$row['READ'];
+	
    // $date= explode('::',$date);
 
 //$date['0'] = strtotime('-1 hour',$date['0']);
@@ -401,7 +403,7 @@ echo $existing_mail.'</font>
 </td>
 <td>';
 $day = explode(' - ', $date);
-if($day['0']==$today_date){echo
+if($read=='1'){echo
 '<b><a href="history.php?id='.$existing_device.'">'.$date.'</a><b/><span><img width="25" src="lib1/img/box.png"></span></td>
 <td>';}
 else{

@@ -30,6 +30,8 @@ if(isset($_GET['smartbox'])){
         }
 		$sql ='UPDATE DEVICES SET SIGNAL="'.$signal.'", DATE="'.$date.'" WHERE  DEVICE="'.$smartbox.'"';
     $ret = $db->exec($sql);
+	$sql ='UPDATE DEVICES SET READ="1" WHERE  DEVICE="'.$smartbox.'"';
+    $ret = $db->exec($sql);
     $sql ="INSERT INTO HISTORY (DATE,DEVICE,SIGNAL,STATUS)"."\n"."VALUES ('".$date."', '".$smartbox."', '".$signal."','DELIVERY');";
     $ret = $db->exec($sql);
 
