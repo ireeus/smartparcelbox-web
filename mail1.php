@@ -5,8 +5,7 @@ $signal = $_GET['SIGNAL'];
 $smartbox = $_GET['smartbox'];
 $date = date("Y/m/d - H:i:s", time()-3600);
 $date=$date.'<br>Lid open';
-$error=1;
-if($error=1){
+
         class MyDB extends SQLite3
         {
             function __construct()
@@ -33,19 +32,21 @@ if($error=1){
         } else {
         }
 		$sql ='UPDATE DEVICES SET SIGNAL="'.$signal.'", DATE="'.$date.'" WHERE  DEVICE="'.$smartbox.'"';
-$ret = $db->exec($sql);
+    $ret = $db->exec($sql);
+    $sql ="INSERT INTO HISTORY (DATE,DEVICE,SIGNAL,STATUS)"."\n"."VALUES ('".$date."', '".$smartbox."', '".$signal."','LID ERROR');";
+    $ret = $db->exec($sql);
         if(!$ret){
             echo $db->lastErrorMsg();
              echo'error1';
         $db->close();
                 chmod("database.db", 0600);
-}}
+}
 /*
      * Enable error reporting
      */
     ini_set( 'display_errors', 1 );
     error_reporting( E_ALL );
- 
+
     /*
      * Setup email addresses and change it to your own
      */
@@ -62,7 +63,7 @@ WiFi signal strenght: ".$signal."
 
 ";
     $headers = "From:" . $from;
- 
+
     /*
      * Test php mail function to see if it returns "true" or "false"
      * Remember that if mail returns true does not guarantee
@@ -77,10 +78,10 @@ Signal strenght: ".$signal."".$date."
 
 
 ";
-    } 
-    else 
+    }
+    else
     {
-        echo "error";
+        echo "error sending email";
     }}
 else{
 //phpinfo();

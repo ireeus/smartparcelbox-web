@@ -25,15 +25,15 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
+        <span class="icon-bar"></span>
       </button>
 
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      
+
     <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Smart Parcel Box</a></li>
-           
+
     </ul>
   </div>
 </nav>
@@ -42,9 +42,8 @@
 <?php
 session_start();
 
-    
+
    if (isset($_GET["add"])){
-      if($error!=1){
                class MyDB extends SQLite3
    {
       function __construct()
@@ -59,7 +58,7 @@ session_start();
 ///////////////////////////////////////////////
 
    $sql ='SELECT * from USERS where USERNAME="'.$_POST["username"].'";';
-
+   $username='';
 
    $ret = $db->query($sql);
    while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
@@ -76,11 +75,11 @@ session_start();
 
 if($username!=$_POST["username"]){if($_POST['email']!=$row['MAIL']){
 
- $sql ="INSERT INTO USERS (ID,NAME,USERNAME,MAIL,PASSWORD)"."\n"."VALUES ('".$_GET["add"]."', '".$_POST["name"]."', '".$_POST["username"]."', '".$_POST["email"]."', '".$_POST["pwd"]."');";
+ $sql ="INSERT INTO USERS (NAME,USERNAME,MAIL,PASSWORD)"."\n"."VALUES ('".$_POST["name"]."', '".$_POST["username"]."', '".$_POST["email"]."', '".$_POST["pwd"]."');";
 echo '<font color="green">'.$_POST["username"].'</font> registered succesfully';
-}else{echo 'This email already exist';}
+}else{echo '<font color="red">This email already exist</font>';}
 }
-else{echo 'This username already exist';}
+else{echo '<font color="red">This username already exist</font>';}
 
 
 
@@ -92,37 +91,23 @@ else{echo 'This username already exist';}
 
  }
 
-//licznik
-$adres='user_id.php';
-if (file_exists($adres)) $t=file($adres);
-else $t=array(0);
-$t[0]++;
-if ($plik=fopen($adres,'w'))
-{
-flock($plik,LOCK_EX);
-fputs($plik,$t[0]);
-flock($plik,LOCK_UN);
-fclose($plik);
-} 
-
    $ret = $db->exec($sql);
    if(!$ret){
       echo $db->lastErrorMsg();
    } else {
-     
+
    }
    $db->close();
                chmod("database.db", 0600);
 
+
 }
-}
-$repoversion = file_get_contents('user_id.php');
 ?>
 
 
   <h2>Registration</h2>
-<form action="registration.php?add=<?php echo $repoversion;?>"  method="post" role="form">
- 
+<form action="registration.php?add"  method="post" role="form">
+
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" id="name" name="name" placeholder="Enter your Name">
@@ -142,7 +127,7 @@ $repoversion = file_get_contents('user_id.php');
     <div class="checkbox">
       <label><input type="checkbox"> Remember me</label>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button> 
+    <button type="submit" class="btn btn-default">Submit</button>
 <a href="login.php">Login</a>
   </form>
 
@@ -156,7 +141,7 @@ $repoversion = file_get_contents('user_id.php');
 </div>
 <br><br><br><br><br><br><br><br>
 <footer class="container-fluid">
-  <p>SmartParcelBox</p>
+  <p>CloudRepo</p>
 </footer>
 
 </body>

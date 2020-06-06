@@ -3,8 +3,6 @@
 <head>
   <title>Add your smart parcel box</title>
 <?php include('lib1/php/style.php');
-include('config.php');
-
 
 $active_user = $_COOKIE['username'];
 if(isset($_COOKIE['username'])){$loginStatus = '<li ><a href="login.php"><font color="white">User: </font><font color="green">'.$active_user.'</font> - Logout</a></li>';}
@@ -13,59 +11,7 @@ exit();}
 
 ?>
  
-<style>
-@-webkit-keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    49% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-@-moz-keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    49% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-@-o-keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    49% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-span {
-    -webkit-animation: blink 1s;
-    -webkit-animation-iteration-count: infinite;
-    -moz-animation: blink 1s;
-    -moz-animation-iteration-count: infinite;
-    -o-animation: blink 1s;
-    -o-animation-iteration-count: infinite;
-}
-
-/* Bordered form */
+<style>/* Bordered form */
 form {
   border: 3px solid #f1f1f1;
 }
@@ -136,9 +82,9 @@ span.psw {
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <div class="icon-bar"></div>
-        <div class="icon-bar"></div>
-        <div class="icon-bar"></div> 
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
@@ -146,13 +92,7 @@ span.psw {
     <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Home</a></li>
           <li ><a href="add.php">Add Device</a></li>
-		  		  <?php 
-					include('config.php');
-					if($_COOKIE['username']==$admin){
-						echo'<li class="active"><a href="admin.php">Register Device</a></li>';
-					}
-						echo $loginStatus;
-					?>
+            <?php echo $loginStatus;?>
     </ul>
   </div> 
 </nav>
@@ -190,9 +130,7 @@ span.psw {
 			if(isset($_POST['delete_dev'])){            
 			$delete_dev = $_POST['delete_dev'];
 			$username = $_COOKIE['username'];
-                    $sql ='UPDATE DEVICES SET USERNAME="", MAIL="", DESCRIPTION="" WHERE USERNAME="'.$username.'" AND DEVICE="'.$delete_dev.'"';
-
-					}
+                    $sql ='UPDATE DEVICES SET USERNAME="", MAIL="", DESCRIPTION="" WHERE USERNAME="'.$username.'" AND DEVICE="'.$delete_dev.'"';}
 				}    
 			}
 
@@ -206,40 +144,11 @@ span.psw {
         }
         $db->close();
         
-            chmod("database.db", 0600);
+
 
 
 
 ///////////EDIT//////////////
-if(isset($_POST['edit_description'])){
-    if($error!=1){
-
-        class MyDB2 extends SQLite3
-        {
-            function __construct()
-            {
-                $this->open('database.db');
-                
-            }
-            
-        }
-    $db = new MyDB2();
-	$username = $_COOKIE['username'];
-	$edit_device = $_POST['edit_device'];
-	$edit_mail = $_POST['edit_mail'];
-	$edit_description = $_POST['edit_description'];
-	$edit_message = $_POST['edit_message'];
-$sql ='UPDATE DEVICES SET MAIL="'.$edit_mail.'", DESCRIPTION="'.$edit_description .'", MESSAGE="'.$edit_message.'" WHERE USERNAME="'.$username.'" AND DEVICE="'.$edit_device.'"';
-$ret = $db->exec($sql);
-        if(!$ret){
-            echo $db->lastErrorMsg();
-             echo'error1';
-		$db->close();
-        chmod("database.db", 0600);
-}
-}
-}
-
 if(isset($_POST['edit_dev'])){
 $edit_dev=$_POST['edit_dev'];
 	$error=2;
@@ -262,15 +171,14 @@ $edit_dev=$_POST['edit_dev'];
 
   $sql ='SELECT * from DEVICES where DEVICE="'.$edit_dev.'";';
   $ret = $db->query($sql);
-   echo '<form action="index.php" method="POST"> <br><br><br><b>Editing <font color="red">'. $edit_dev.'</font></b><br>
+   echo '<form action="index.php" method="POST"> <br><br><br><b>Editing <font color="red">'. $existing_device.'</font></b><br>
    <br>
    <table class="table">
     <thead>
       <tr>
 
         <th>Description</th>
-        <th>Notifications e-mail address</th>
-		<th>Notifications message</th>
+        <th>Email</th>
 <th></th>
 
       </tr>
@@ -283,7 +191,6 @@ $edit_dev=$_POST['edit_dev'];
     $existing_device=$row['DEVICE'];
     $existing_user=$row['USERNAME'];
 	$description=$row['DESCRIPTION'];
-	$message=$row['MESSAGE'];
 
 if($active_user=$existing_user){
 	
@@ -293,21 +200,20 @@ echo '
 
 echo ' 
 
-<td><input type="hidden" value="'. $existing_device.'" name="edit_device">
-<input type="text" value="'.$description.'" name="edit_description">
+<td><input type="text" value="'.$description.'" name="edit_descryption">
 </td>  
 <td>
 <font color="green"> ';
 
-echo '<input type="text" value="'.$existing_mail.'" name="edit_mail">';
+echo '<input type="text" value="'.$existing_mail.'" name="edit_email">';
 echo'</font> 
 </td>  
-<td>';
-echo '<input type="text" value="'.$message.'" name="edit_message">';
-echo' 
-</td>  
+
 </tr>
 	  <input type="submit" class="btn btn-primary btn-xl" value="Save">
+
+      
+	  
 
 	  </form>';
 }
@@ -334,7 +240,6 @@ echo'
 }else{
 	
 //////////////////Preview/////////////////////
-$today_date= date("Y/m/d", time()-3600);
 
 $error=2;
       if($error!=1){
@@ -356,15 +261,17 @@ $error=2;
 
   $sql ='SELECT * from DEVICES where USERNAME="'.$active_user.'";';
   $ret = $db->query($sql);
-   echo '<br><br><br><b>Your Smart Parcel Boxes</b><br>
+   echo '<br><br><br><b>Twoje skrzynki</b><br>
    <br>
    <table class="table">
     <thead>
       <tr>
+        <th>ID number</th>
         <th>Description</th>
-        <th>Notifications e-mail address</th>
-		<th>Last Event</th>
-		<th>WiFi Signal</th>
+        <th>Email</th>
+		<th>Recent</th>
+		<th>Signal</th>
+		<th></th>
 		<th></th>
       </tr>
     </thead>
@@ -373,56 +280,41 @@ $error=2;
    ';
    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
     $existing_mail=$row["MAIL"];
-$existing_mail=str_replace(",","<br>",$existing_mail);
     $existing_device=$row['DEVICE'];
     $existing_user=$row['USERNAME'];
 	$description=$row['DESCRIPTION'];
-	$signal=$row['SIGNAL'];
-    $date=$row['DATE'];
-   // $date= explode('::',$date);
-	
-//$date['0'] = strtotime('-1 hour',$date['0']);
-//$date['0'] = date( 'Y/m/d - h:i:sa' ,  );
+
 if($active_user=$existing_user){
+	
+	
+	
+
 	
 echo '
       <tr>
-        <td>';
-echo $description;
-echo'	<br>	
-<font color="blue" size="1"> ID:';   
+        <td>
+<font color="red"> ';   
 echo $existing_device;
-echo '</font> ';
-echo'
+echo '</font> 
+</td>
+<td>
+'.$description.'
 </td>  
 <td>
 <font color="green"> ';
-echo $existing_mail.'</font> 
+echo $existing_mail;
+echo'</font> 
 </td>
-<td>';
-$day = explode(' - ', $date);
-if($day['0']==$today_date){echo
-'<b>'.$date.'<b/><span><img width="25" src="lib1/img/box.png"></span></td>
-<td>';}
-else{
-echo
-$date.'
-</td>
-<td>';
-}
-
-if($signal>=-50){echo'<img src="lib1/img/100.png" width="35">';}
-if($signal<=-51 and $signal>=-60){echo'<img src="lib1/img/75.png" width="35">';}
-if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="35">';}
-if($signal<=-71){echo'<img src="lib1/img/25.png" width="35">';}
-echo'
+<td></td>
+<td>
 </td>
 <td><form action="index.php" method="POST">  
 <input type="hidden" name="username">
   <input type="hidden" value="'.$existing_device.'" name="edit_dev">
   <input  type="submit" class="btn btn-success btn-xs" value="Edit"></form>
   
-  
+  </td>
+<td>
   
   <form action="index.php" method="POST">  
 <input type="hidden" name="username">

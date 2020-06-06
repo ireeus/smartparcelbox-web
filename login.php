@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>CloudRepo</title>
+  <title>Login to Smart Parcel Box</title>
  <?php include('lib1/php/style.php');
 
 
@@ -119,7 +119,7 @@ exit;
 </div>
 <br><br><br><br><br><br><br><br>
 <footer class="container-fluid">
-  <p>SmartParcelBox</p>
+  <p>CloudRepo</p>
 </footer>
 
 </body>

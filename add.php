@@ -95,7 +95,7 @@ span.psw {
 		  		  <?php 
 					include('config.php');
 					if($_COOKIE['username']==$admin){
-						echo'<li class="active"><a href="admin.php">Register New Device</a></li>';
+						echo'<li class="active"><a href="admin.php">Register Device</a></li>';
 					}
 						echo $loginStatus;
 					?>
