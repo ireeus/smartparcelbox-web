@@ -119,7 +119,7 @@ exit;
 </div>
 <br><br><br><br><br><br><br><br>
 <footer class="container-fluid">
-  <p>CloudRepo</p>
+  <p>SmartParcelBox</p>
 </footer>
 
 </body>
