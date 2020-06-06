@@ -12,7 +12,7 @@ elseif(!isset($_COOKIE['username'])){header('Location: login.php');
 exit();}
 
 ?>
- 
+
 <style>
 @-webkit-keyframes blink {
     0% {
@@ -138,15 +138,15 @@ span.psw {
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <div class="icon-bar"></div>
         <div class="icon-bar"></div>
-        <div class="icon-bar"></div> 
+        <div class="icon-bar"></div>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      
+
     <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Home</a></li>
           <li ><a href="add.php">Add Device</a></li>
-		  		  <?php 
+		  		  <?php
 					include('config.php');
 					if($_COOKIE['username']==$admin){
 						echo'<li class="active"><a href="admin.php">Register Device</a></li>';
@@ -154,7 +154,7 @@ span.psw {
 						echo $loginStatus;
 					?>
     </ul>
-  </div> 
+  </div>
 </nav>
 </div>
 
@@ -171,29 +171,29 @@ span.psw {
             function __construct()
             {
                 $this->open('database.db');
-                
+
             }
-            
+
         }
         $db = new MyDB1();
         if(!$db){
             echo $db->lastErrorMsg();
-            
+
         } else {
-            
+
             $sql ='SELECT * from DEVICES;';
             $ret = $db->query($sql);
             while($row = $ret->fetchArray(SQLITE3_ASSOC)){
             $existing_device=$row["DEVICE"];
             $existing_user=$row["USERNAME"];
             $activation_code=$row["ACTIVATION_CODE"];
-			if(isset($_POST['delete_dev'])){            
+			if(isset($_POST['delete_dev'])){
 			$delete_dev = $_POST['delete_dev'];
 			$username = $_COOKIE['username'];
                     $sql ='UPDATE DEVICES SET USERNAME="", MAIL="", DESCRIPTION="" WHERE USERNAME="'.$username.'" AND DEVICE="'.$delete_dev.'"';
 
 					}
-				}    
+				}
 			}
 
         }
@@ -202,10 +202,10 @@ span.psw {
             echo $db->lastErrorMsg();
              echo'error1';
         } else {
-                 
+
         }
         $db->close();
-        
+
             chmod("database.db", 0600);
 
 
@@ -219,9 +219,9 @@ if(isset($_POST['edit_description'])){
             function __construct()
             {
                 $this->open('database.db');
-                
+
             }
-            
+
         }
     $db = new MyDB2();
 	$username = $_COOKIE['username'];
@@ -255,7 +255,7 @@ $edit_dev=$_POST['edit_dev'];
    if(!$db){
       echo $db->lastErrorMsg();
    } else {
-   $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';   
+   $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
    $ret = $db->query($sql);
     while($row1 = $ret->fetchArray(SQLITE3_ASSOC)){
       $mail=$row1["MAIL"];}
@@ -276,7 +276,7 @@ $edit_dev=$_POST['edit_dev'];
       </tr>
     </thead>
     <tbody>
-   
+
    ';
    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
     $existing_mail=$row["MAIL"];
@@ -286,53 +286,53 @@ $edit_dev=$_POST['edit_dev'];
 	$message=$row['MESSAGE'];
 
 if($active_user=$existing_user){
-	
+
 echo '
       <tr>
-';   
+';
 
-echo ' 
+echo '
 
 <td><input type="hidden" value="'. $existing_device.'" name="edit_device">
 <input type="text" value="'.$description.'" name="edit_description">
-</td>  
+</td>
 <td>
 <font color="green"> ';
 
 echo '<input type="text" value="'.$existing_mail.'" name="edit_mail">';
-echo'</font> 
-</td>  
+echo'</font>
+</td>
 <td>';
 echo '<input type="text" value="'.$message.'" name="edit_message">';
-echo' 
-</td>  
+echo'
+</td>
 </tr>
 	  <input type="submit" class="btn btn-primary btn-xl" value="Save">
 
 	  </form>';
 }
 
- 
+
   }
  }
    $ret = $db->exec($sql);
    if(!$ret){
       echo $db->lastErrorMsg();
    } else {
-     
+
    }
    $db->close();
 }
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 }else{
-	
+
 //////////////////Preview/////////////////////
 $today_date= date("Y/m/d", time()-3600);
 
@@ -349,7 +349,7 @@ $error=2;
    if(!$db){
       echo $db->lastErrorMsg();
    } else {
-   $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';   
+   $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
    $ret = $db->query($sql);
     while($row1 = $ret->fetchArray(SQLITE3_ASSOC)){
       $mail=$row1["MAIL"];}
@@ -369,7 +369,7 @@ $error=2;
       </tr>
     </thead>
     <tbody>
-   
+
    ';
    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
     $existing_mail=$row["MAIL"];
@@ -380,33 +380,32 @@ $existing_mail=str_replace(",","<br>",$existing_mail);
 	$signal=$row['SIGNAL'];
     $date=$row['DATE'];
    // $date= explode('::',$date);
-	
+
 //$date['0'] = strtotime('-1 hour',$date['0']);
 //$date['0'] = date( 'Y/m/d - h:i:sa' ,  );
 if($active_user=$existing_user){
-	
+
 echo '
       <tr>
         <td>';
 echo $description;
-echo'	<br>	
-<font color="blue" size="1"> ID:';   
+echo'	<br>
+<font color="blue" size="1"> ID:';
 echo $existing_device;
 echo '</font> ';
 echo'
-</td>  
+</td>
 <td>
 <font color="green"> ';
-echo $existing_mail.'</font> 
+echo $existing_mail.'</font>
 </td>
 <td>';
 $day = explode(' - ', $date);
 if($day['0']==$today_date){echo
-'<b>'.$date.'<b/><span><img width="25" src="lib1/img/box.png"></span></td>
+'<b><a href="history.php?id='.$existing_device.'">'.$date.'</a><b/><span><img width="25" src="lib1/img/box.png"></span></td>
 <td>';}
 else{
-echo
-$date.'
+echo'<a href="history.php?id='.$existing_device.'">'.$date.'</a>
 </td>
 <td>';
 }
@@ -417,28 +416,28 @@ if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="35">';}
 if($signal<=-71){echo'<img src="lib1/img/25.png" width="35">';}
 echo'
 </td>
-<td><form action="index.php" method="POST">  
+<td><form action="index.php" method="POST">
 <input type="hidden" name="username">
   <input type="hidden" value="'.$existing_device.'" name="edit_dev">
   <input  type="submit" class="btn btn-success btn-xs" value="Edit"></form>
-  
-  
-  
-  <form action="index.php" method="POST">  
+
+
+
+  <form action="index.php" method="POST">
 <input type="hidden" name="username">
   <input type="hidden" value="'.$existing_device.'"name="delete_dev">
-  <input type="submit" class="btn btn-danger btn-xs" value="Delete"></form></td> 
+  <input type="submit" class="btn btn-danger btn-xs" value="Delete"></form></td>
       </tr>';
 }
 
- 
+
   }
  }
    $ret = $db->exec($sql);
    if(!$ret){
       echo $db->lastErrorMsg();
    } else {
-     
+
    }
    $db->close();
 }
@@ -447,7 +446,7 @@ echo'
 ?>
     </tbody>
   </table>
-   
+
 
 
 
@@ -467,18 +466,3 @@ echo'
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
