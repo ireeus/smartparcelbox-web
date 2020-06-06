@@ -138,10 +138,10 @@ span.psw {
 
     <ul class="nav navbar-nav">
         <li ><a href="index.php">Home</a></li>
-          <li class="active"><a href="add.php">Add Device</a></li>
+          <li><a href="add.php">Add Device</a></li>
 		  		  <?php
 					if($_COOKIE['username']==$admin){
-						echo'<li class="active"><a href="admin.php">Register Device</a></li>';
+						echo'<li><a href="admin.php">Register Device</a></li>';
 					}
 						echo $loginStatus;
 					?>

@@ -138,7 +138,7 @@ span.psw {
 
     <ul class="nav navbar-nav">
         <li ><a href="index.php">Home</a></li>
-          <li class="active"><a href="add.php">Add Device</a></li>
+          <li><a href="add.php">Add Device</a></li>
 		  		  <?php
 					if($_COOKIE['username']==$admin){
 						echo'<li class="active"><a href="admin.php">Register Device</a></li>';
@@ -195,12 +195,11 @@ else{echo 'Empty field';}
 	}
 }
 }
-$repoversion = file_get_contents('device_id.php');
 ?>
 
 
 
-<br><br><br><br>
+<br>
 
 <form action="admin.php"  method="post" role="form">
 Device ID:<br>

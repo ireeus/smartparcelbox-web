@@ -10,7 +10,7 @@ elseif(!isset($_COOKIE['username'])){
     header('Location: login.php');
      exit();}
 ?>
- 
+
 <style>/* Bordered form */
 form {
   border: 3px solid #f1f1f1;
@@ -84,18 +84,18 @@ span.psw {
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      
+
     <ul class="nav navbar-nav">
         <li ><a href="index.php">Home</a></li>
           <li class="active"><a href="add.php">Add Device</a></li>
-		  		  <?php 
+		  		  <?php
 					include('config.php');
 					if($_COOKIE['username']==$admin){
-						echo'<li class="active"><a href="admin.php">Register Device</a></li>';
+						echo'<li><a href="admin.php">Register Device</a></li>';
 					}
 						echo $loginStatus;
 					?>
@@ -140,7 +140,7 @@ Device ID:<br>
         } else {
         }
         $db->close();
-   
+
 
 
 
@@ -152,7 +152,7 @@ Device ID:<br>
 
 if(isset($_POST['devid']) and isset($_POST['activation']))
 {
-    
+
     $devid = $_POST['devid'];
     //$mail = $_POST['mail'];
     $error=2;
@@ -163,16 +163,16 @@ if(isset($_POST['devid']) and isset($_POST['activation']))
             function __construct()
             {
                 $this->open('database.db');
-                
+
             }
-            
+
         }
         $db = new MyDB1();
         if(!$db){
             echo $db->lastErrorMsg();
-            
+
         } else {
-            
+
             $sql ='SELECT * from DEVICES;';
             $ret = $db->query($sql);
             while($row = $ret->fetchArray(SQLITE3_ASSOC)){
@@ -182,12 +182,12 @@ if(isset($_POST['devid']) and isset($_POST['activation']))
             $activation=$_POST['activation'];
                 if($existing_device==$_POST['devid'] and $existing_user=="" and  $activation_code==$_POST['activation']) {
                     $sql ='UPDATE DEVICES SET USERNAME="'.$active_user.'" WHERE ACTIVATION_CODE="'.$activation.'" AND DEVICE="'.$devid.'"';}
-                }    
-               
-               
-                
-          
-            
+                }
+
+
+
+
+
         }
         $ret = $db->exec($sql);
         if(!$ret){
@@ -198,9 +198,9 @@ if(isset($_POST['devid']) and isset($_POST['activation']))
 ';
         }
         $db->close();
-        
+
     }
-    
+
 }
 
 ?>
@@ -221,18 +221,3 @@ if(isset($_POST['devid']) and isset($_POST['activation']))
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
