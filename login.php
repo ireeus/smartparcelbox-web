@@ -98,7 +98,7 @@ exit;
 
 
 <div class="alert alert-success">
-  <br><br><br><img src="lib1/img/box.jpg" width="70"> <br><br>Making sure your parcel will reach your box<br>
+  <br><br><br><img src="lib1/img/smartbox.png" width="70"> - Making sure your parcel will reach your box<br>
 <br>
 </div>
 
@@ -115,11 +115,10 @@ exit;
       <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter password">
     </div>
     <div class="checkbox">
-      <label><input type="checkbox" name="remember_me" value="15"> Remember me</label>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
-  </form>
-<a href="registration.php">Register</a>
+  </form><br>
+<a href="registration.php">Register new account</a>
 </div>
          </div>
         </div>
