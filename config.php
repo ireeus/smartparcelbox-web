@@ -1,4 +1,4 @@
 <?php
-// Admin account
-// Enter the single login of the registered user
+//Admin user
+//Enter the login of the user that will be taking care of this website
 $admin = 'john';
