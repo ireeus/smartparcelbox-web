@@ -106,7 +106,7 @@ exit;
       }else{
        echo '
 	   <div class="alert alert-danger">
-  <strong>User not exist</strong> please register to continue!.
+  <strong>User doesn\'t exist</strong> please register to continue!.
 </div>';
       }
    //echo "Operation done successfully\n";
@@ -116,7 +116,7 @@ exit;
 ?>
   
   
-  <img src="lib1/img/smartbox.png"  style="width:30%">  <font size="4" color="black">Making sure your parcel will reach your box</font><br>
+  <img src="lib1/img/smartbox.png"  style="width:30%">  <i><font size="4" color="black">Making sure your parcel will reach your box</font></i><br>
 <br>
 </div>
 

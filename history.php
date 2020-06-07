@@ -47,6 +47,8 @@ echo'wefrfgertgertge';
       chmod("database.db", 0600);
     }
 
+
+
 ?>
 
 <style>/* Bordered form */
@@ -138,20 +140,59 @@ span.psw {
   </div>
 </nav>
 </div>
-<DIV>
+
+
+
+
+<DIV class="panel">
 <BR>
    <table class="table">
     <thead>
       <tr>
-        <th>TIMESTAMP</th>
-        <th>BOX ID</th>
-		<th>SIGNAL</th>
-		<th>STATUS</th>
-		<th></th>
+        <th><center>TIMESTAMP</center></th>
+        <th><center>BOX ID</center></th>
+		<th><center>SIGNAL</center></th>
+		<th><center>STATUS</center></th>
+		<th><center>DELETE</center></th>
       </tr>
     </thead>
     <tbody>
+
 <?php
+	// deleting items
+if((isset($_GET['X'])) and (isset($_GET['XDEV']))){
+	
+	
+	
+	
+	    class MyDB1 extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('database.db');
+
+        }
+
+    }
+    $db = new MyDB1();
+    if(!$db){
+        echo $db->lastErrorMsg();
+
+    } else {
+
+        $sql ='DELETE from HISTORY where ID="'.$_GET['X'].'" and DEVICE="'.$_GET['XDEV'].'";';
+        $ret = $db->query($sql);
+		echo'<script>window.location = "https://spb.5v.pl/history.php?id='.$_GET['XDEV'].'"</script>';
+
+		
+
+    }
+  }
+	
+	
+	
+	
+else{
 
 //////////////////Preview/////////////////////
 $today_date= date("Y/m/d", time()-3600);
@@ -177,6 +218,7 @@ $smartbox=$_GET['id'];
 
    ';
    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+     $id=$row['ID'];
      $date=$row['DATE'];
     $device=$row['DEVICE'];
 	$signal=$row['SIGNAL'];
@@ -188,25 +230,26 @@ $smartbox=$_GET['id'];
 
 echo '
       <tr>
-        <td>';
+        <td><center>';
 echo $date;
 
 echo'
-</td>
-<td>
+</center></td>
+<td><center>
 <font color="green"> ';
 echo $device.'</font>
-</td>
-<td>';
+</center></td>
+<td><center>';
 
 
 if($signal>=-50){echo'<img src="lib1/img/100.png" width="35">';}
 if($signal<=-51 and $signal>=-60){echo'<img src="lib1/img/75.png" width="35">';}
 if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="35">';}
 if($signal<=-71){echo'<img src="lib1/img/25.png" width="35">';}
-echo'
+echo'</center>
 </td>
-<td>'.$status.'</td>
+<td><center>'.$status.'</center></td>
+<td><center><a href="history.php?X='.$id.'&XDEV='.$smartbox.'">X</a></center></td>
       </tr>';
 }
 
@@ -220,22 +263,19 @@ echo'
    }
    $db->close();
 
-
+}
 
 ?>
 <!-- end -->
 
             </div>
+		
+
           </div>
         </div>
       </div>
     </div>
   </div>
-<div>
-<br><br>
-<footer class="container-fluid">
-  <p>SmartParcelBox</p>
-</footer>
 
 </body>
 </html>
