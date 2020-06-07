@@ -94,7 +94,8 @@ exit;
    $db->close();
      }
 
-?><br><br><br>
+?><br><br><br><img src="lib1/img/box.jpg" width="70"> <br><br>Making sure your parcel will reach your box<br>
+<br>
   <form role="form" action="login.php?login=true" method="post" role="form">
     <div class="form-group">
       <label for="usr_name">Username:</label>
