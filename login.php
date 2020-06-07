@@ -38,8 +38,15 @@
 </nav>
 </div>
 
+<div class="jumbotron">
 <div class="container">
- <?php
+
+
+
+<div class="alert alert-success">
+  
+  
+   <?php
 //destroying existing session
 
 setcookie("username", "", time() - 3600, "/");
@@ -60,6 +67,7 @@ $_SESSION['username'] = '';
       }
    }
    $db = new MyDB();
+   $id='';
    if(!$db){
       echo $db->lastErrorMsg();
    } else {
@@ -75,6 +83,7 @@ $_SESSION['username'] = '';
       $username=$row["USERNAME"];
       $password=$row['PASSWORD'];
   }
+  
     if ($id!=""){
         if ($password==$_POST["pwd"]){
 $time='36000';
@@ -85,20 +94,29 @@ setcookie("username", $username, time() + $time, '/');
 exit;
         }else{
           
-          echo "Wrong Password";
+          echo '
+		  
+		  
+		  
+		  
+<div class="alert alert-danger">
+  <strong>Wrong Password</strong> try again.
+</div>';
         }
       }else{
-       echo "User not exist, please register to continue!";
+       echo '
+	   <div class="alert alert-danger">
+  <strong>User not exist</strong> please register to continue!.
+</div>';
       }
    //echo "Operation done successfully\n";
    $db->close();
      }
 
 ?>
-
-
-<div class="alert alert-success">
-  <br><br><br><img src="lib1/img/smartbox.png" width="70"> - Making sure your parcel will reach your box<br>
+  
+  
+  <img src="lib1/img/smartbox.png"  style="width:30%">  <font size="4" color="black">Making sure your parcel will reach your box</font><br>
 <br>
 </div>
 
@@ -119,7 +137,7 @@ exit;
     <button type="submit" class="btn btn-default">Submit</button>
   </form><br>
 <a href="registration.php">Register new account</a>
-</div>
+</div></div>
          </div>
         </div>
       </div>
