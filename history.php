@@ -15,7 +15,7 @@ if($_COOKIE['username']!=$admin){ header('Location: login.php');}
 
 ////////Delete
 if(isset($_GET['id'])){
-
+echo'wefrfgertgertge';
     class MyDB1 extends SQLite3
     {
         function __construct()
@@ -26,20 +26,14 @@ if(isset($_GET['id'])){
 
     }
     $db = new MyDB1();
+	$devid=$_GET['id'];
+                    $sql ='UPDATE DEVICES SET READ="0" WHERE DEVICE="'.$devid.'"';
+					
+  $ret = $db->exec($sql);
     if(!$db){
         echo $db->lastErrorMsg();
 
-    } else {
-$devid=$_GET['id'];
-        $sql ='SELECT * from DEVICES;';
-        $ret = $db->query($sql);
-        while($row = $ret->fetchArray(SQLITE3_ASSOC)){
- 
-                    $sql ='UPDATE DEVICES SET READ="0" WHERE DEVICE="'.$devid.'"';
-
-      }
-    }
-  }
+    } 
 
   $ret = $db->exec($sql);
   if(!$ret){
