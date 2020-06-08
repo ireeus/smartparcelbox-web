@@ -165,18 +165,77 @@ span.psw {
 	  <br><br>
 Change Password<br><br>
         <label for="ex3">Current Password</label>
-		<input class="form-control" type="text" required name="currentpass">
+		<input class="form-control" type="password" required name="currentpass">
 
   <br>
 
         <label for="ex3">New Password</label>
-		<input class="form-control" type="text" required name="newpass">
+		<input class="form-control" type="password" required name="newpass">
 
  <br>
         <label for="ex3">Repeat Password</label>
-		<input class="form-control" type="text" required name="repeatnewpass">
+		<input class="form-control" type="password" required name="repeatnewpass">
 <br><button> Change Password</button><br>
 </form>
+
+<?php
+
+
+if((isset($_GET['error'])) and $_GET['error']=='1'){echo'Dont remember your password? Try again.';}
+if((isset($_GET['error'])) and $_GET['error']=='2'){echo'Passwords do not match.';}
+if((isset($_GET['error'])) and $_GET['error']=='3'){echo'Empty field.';}
+if((isset($_GET['error'])) and $_GET['error']=='4'){echo'Password changed succcesfully.';}
+
+///////////////DB connect//////////////////
+$sql="";
+if((isset($_POST['newpass'])) and (isset($_POST['repeatnewpass'])) and (isset($_POST['currentpass']))){
+
+  $username = $_COOKIE['username'];
+  $currentpass = $_POST['currentpass'];
+  $newpass = $_POST['newpass'];
+  $repeatnewpass = $_POST['repeatnewpass'];
+
+if($_POST['newpass']!=$_POST['repeatnewpass']){ echo'<script>window.location = "settings.php?error=2"</script>';
+
+die();}
+if($_POST['newpass']=="" or $_POST['repeatnewpass']==""){ echo'<script>window.location = "settings.php?error=3"</script>';die();}
+        class MyDB extends SQLite3
+        {
+            function __construct()
+            {
+                $this->open('database.db');
+            }
+        }
+        $db = new MyDB();
+        if(!$db){
+            echo $db->lastErrorMsg();
+        } else {
+            $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
+            $ret = $db->query($sql);
+            while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+                $currentpassword=$row["PASSWORD"];
+                if($_POST['currentpass']!= $currentpassword){echo'<script>window.location = "settings.php?error=1"</script>';}
+                if($_POST['currentpass']== $currentpassword){
+                  $sql ='UPDATE USERS SET PASSWORD="'.$newpass.'" WHERE USERNAME="'.$username.'" ';
+
+
+                  $ret = $db->exec($sql);
+echo'<script>window.location = "settings.php?error=4"</script>';
+                }
+
+            }
+        }
+        $ret = $db->exec($sql);
+        if(!$ret){
+            echo $db->lastErrorMsg();
+        } else {
+        }
+        $db->close();
+
+
+            chmod("database.db", 0600);}
+?>
+
  </div>
 
 
@@ -185,73 +244,6 @@ Change Password<br><br>
 <br>
 
 
-<?php
-////////delete///////////
-
-
-    $error=2;
-    if($error!=1){
-		
-///////////////DB connect//////////////////
-$sql="";
-        class MyDB1 extends SQLite3
-        {
-            function __construct()
-            {
-                $this->open('database.db');
-            }
-        }
-        $db = new MyDB1();
-///////////////DB connect end//////////////////
-///////////////DB connect error report/////////
-        if(!$db){
-			echo $db->lastErrorMsg();
-			} 
-		else {
-///////////////query execute//////////////////
-
-			if((isset($_POST['currentpass'])) and (isset($_POST['newpass'])) and (isset($_POST['repeatnewpass']))){
-			
-				$username = $_COOKIE['username'];
-				$sql='SELECT FROM USERS where USERBAME="'.$username.'"';
-				$ret = $db->exec($sql);
-				while($row = $ret->fetchArray(SQLITE3_ASSOC)){
-           				$currentpassword=$row["PASSWORD"];
-				if($_POST['currentpass']!= $currentpassword){ ECHO"You've entered a wrong password.";}
-
-            }
-
-
-			// ERRORS
-			if($_POST['newpass']!=$_POST['repeatnewpass']){ ECHO"Passwords don't match";}
-			if($_POST['newpass']=="" or $_POST['repeatnewpass']==""){ ECHO"Empty field";}
-				
-			
-			$currentpass = $_POST['currentpass'];
-			$newpass = $_POST['newpass'];
-			$repeatnewpass = $_POST['repeatnewpass'];
-			$sql ='UPDATE USERS SET PASSWORD="'.$newpass.'" WHERE USERNAME="'.$username.'" ';
-
-					}
-					else{echo"Something is not right";}
-				}
-		$ret = $db->exec($sql);
-        if(!$ret){
-            echo $db->lastErrorMsg();
-             echo'error1';
-        } 
-        $db->close();
-
-            chmod("database.db", 0600);
-				
-				
-			}
-
-
-
-
-
-?>
     </tbody>
   </table>
 
