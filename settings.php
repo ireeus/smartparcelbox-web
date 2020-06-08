@@ -223,8 +223,8 @@ $sql="";
 
 
 			// ERRORS
-			if($_POST['newpass']!=$_POST['repeatnewpass'])){ ECHO"Passwords don't match";}
-			if($_POST['newpass']=="" or $_POST['repeatnewpass']==""  )){ ECHO"Empty field";}
+			if($_POST['newpass']!=$_POST['repeatnewpass']){ ECHO"Passwords don't match";}
+			if($_POST['newpass']=="" or $_POST['repeatnewpass']==""){ ECHO"Empty field";}
 				
 			
 			$currentpass = $_POST['currentpass'];
