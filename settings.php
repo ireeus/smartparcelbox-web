@@ -211,12 +211,26 @@ $sql="";
 ///////////////query execute//////////////////
 
 			if((isset($_POST['currentpass'])) and (isset($_POST['newpass'])) and (isset($_POST['repeatnewpass']))){
+			
+				$username = $_COOKIE['username'];
+				$sql='SELECT FROM USERS where USERBAME="'.$username.'"';
+				$ret = $db->exec($sql);
+				while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+           				$currentpassword=$row["PASSWORD"];
+				if($_POST['currentpass']!= $currentpassword){ ECHO"You've entered a wrong password.";}
+
+            }
+
+
+			// ERRORS
+			if($_POST['newpass']!=$_POST['repeatnewpass'])){ ECHO"Passwords don't match";}
+			if($_POST['newpass']=="" or $_POST['repeatnewpass']==""  )){ ECHO"Empty field";}
 				
-			$username = $_COOKIE['username'];
-			$currentpass = $_COOKIE['currentpass'];
+			
+			$currentpass = $_POST['currentpass'];
 			$newpass = $_POST['newpass'];
 			$repeatnewpass = $_POST['repeatnewpass'];
-			$sql ='UPDATE USERS SET USERNAME="", MAIL="", DESCRIPTION="" WHERE USERNAME="'.$username.'" AND DEVICE="'.$delete_dev.'"';
+			$sql ='UPDATE USERS SET PASSWORD="'.$newpass.'" WHERE USERNAME="'.$username.'" ';
 
 					}
 					else{echo"Something is not right";}
