@@ -144,15 +144,18 @@ span.psw {
     <div class="collapse navbar-collapse" id="myNavbar">
 
     <ul class="nav navbar-nav">
-        <li class="active"><a href="index.php">Home</a></li>
+        <li ><a href="index.php">Home</a></li>
           <li ><a href="add.php">Add Device</a></li>
+		  <li class="active"><a href="add.php">Settings</a></li>
+
 		  		  <?php
 					include('config.php');
 					if($_COOKIE['username']==$admin){
 						echo'<li><a href="admin.php">Register Device</a></li>';
 					}
 						echo $loginStatus;
-					?>
+					?> 
+
     </ul>
   </div>
 </nav>
@@ -162,7 +165,7 @@ span.psw {
       <div class="col-xs-4">
 
 	  <form action="settings.php"  method="post" role="form">
-	  <br><br>
+	  <br><br> <br><br>
 Change Password<br><br>
         <label for="ex3">Current Password</label>
 		<input class="form-control" type="password" required name="currentpass">

@@ -146,6 +146,8 @@ span.psw {
     <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Home</a></li>
           <li ><a href="add.php">Add Device</a></li>
+		  		  <li><a href="settings.php">Settings</a></li>
+
 		  		  <?php
 					include('config.php');
 					if($_COOKIE['username']==$admin){
