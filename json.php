@@ -1,9 +1,7 @@
 <?php
-echo'{"title":"Delivery at ';
-
 header("Content-Type: application/json;charset=utf-8");
 $active_user = $_COOKIE['username'];
-
+echo'{"title":"Delivery at the following","text":"';
 //////////////////Preview/////////////////////
 $today_date= date("Y/m/d", time()-3600);
 $time= date("Y/m/d H:m:s");
@@ -43,9 +41,8 @@ $message=$row['MESSAGE'];
 
 	if($active_user=$existing_user){
 	  $day = explode(' - ', $date);
-	  echo $description;
-	  
-	  echo'","text":"'.$message.' - '.$date;  
+
+	  echo $description.' - '.$date;  
 
 	}
   }
