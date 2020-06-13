@@ -1,4 +1,6 @@
 <?php
+echo'{"title":"Delivery at ';
+
 header("Content-Type: application/json;charset=utf-8");
 $active_user = $_COOKIE['username'];
 
@@ -38,27 +40,14 @@ $message=$row['MESSAGE'];
     $date=$row['DATE'];
     $read=$row['READ'];
 
-   // $date= explode('::',$date);
 
-//$date['0'] = strtotime('-1 hour',$date['0']);
-//$date['0'] = date( 'Y/m/d - h:i:sa' ,  );
-if($active_user=$existing_user){
-  $day = explode(' - ', $date);
-  echo'{"title":"Delivery at '.$description.'","text":"'.$message.' - '.$date.'","cookie":"'.$active_user.'"}';
+	if($active_user=$existing_user){
+	  $day = explode(' - ', $date);
+	  echo $description;
+	  
+	  echo'","text":"'.$message.' - '.$date;  
 
-/*
-
-if($read=='1'){echo
-'<a href="history.php?id='.$existing_device.'">'.$date.'</a>';}
-else{
-echo'<a href="history.php?id='.$existing_device.'">'.$date.'</a>';
-}
-echo',';
-*/
-}
-
-
-
+	}
   }
  }
    $ret = $db->exec($sql);
@@ -69,5 +58,6 @@ echo',';
    }
    $db->close();
 }
+  echo'","cookie":"'.$active_user.'"}';
 if(!isset($_COOKIE['username'])){echo'{"title":"Logged out","text":"Please login to recive notifications - '.$time.'","cookie":"'.$active_user.'"}'; }
 ?>
