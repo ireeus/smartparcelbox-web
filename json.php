@@ -42,7 +42,7 @@ $message=$row['MESSAGE'];
 	if($active_user=$existing_user){
 	  $day = explode(' - ', $date);
 
-	  echo $description.' - '.$date;  
+	  echo '>>'.$description.' '.$date.'<<';  
 
 	}
   }
