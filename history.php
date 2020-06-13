@@ -15,7 +15,6 @@ if($_COOKIE['username']!=$admin){ header('Location: login.php');}
 
 ////////Delete
 if(isset($_GET['id'])){
-echo'wefrfgertgertge';
     class MyDB1 extends SQLite3
     {
         function __construct()
@@ -28,12 +27,12 @@ echo'wefrfgertgertge';
     $db = new MyDB1();
 	$devid=$_GET['id'];
                     $sql ='UPDATE DEVICES SET READ="0" WHERE DEVICE="'.$devid.'"';
-					
+
   $ret = $db->exec($sql);
     if(!$db){
         echo $db->lastErrorMsg();
 
-    } 
+    }
 
   $ret = $db->exec($sql);
   if(!$ret){
@@ -143,8 +142,9 @@ span.psw {
 </nav>
 </div>
 
+<DIV class="panel">  </div>
 
-
+<DIV class="panel">  </div>
 
 <DIV class="panel">
 <BR>
@@ -163,10 +163,10 @@ span.psw {
 <?php
 	// deleting items
 if((isset($_GET['X'])) and (isset($_GET['XDEV']))){
-	
-	
-	
-	
+
+
+
+
 	    class MyDB1 extends SQLite3
     {
         function __construct()
@@ -184,16 +184,16 @@ if((isset($_GET['X'])) and (isset($_GET['XDEV']))){
 
         $sql ='DELETE from HISTORY where ID="'.$_GET['X'].'" and DEVICE="'.$_GET['XDEV'].'";';
         $ret = $db->query($sql);
-		echo'<script>window.location = "https://spb.5v.pl/history.php?id='.$_GET['XDEV'].'"</script>';
+		echo'<script>window.location = "history.php?id='.$_GET['XDEV'].'"</script>';
 
-		
+
 
     }
   }
-	
-	
-	
-	
+
+
+
+
 else{
 
 //////////////////Preview/////////////////////
@@ -271,7 +271,7 @@ echo'</center>
 <!-- end -->
 
             </div>
-		
+
 
           </div>
         </div>

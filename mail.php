@@ -4,7 +4,7 @@ if(isset($_GET['smartbox'])){
   $signal = $_GET['SIGNAL'];
   $smartbox = $_GET['smartbox'];
   $date = date("Y/m/d - H:i:s", time()-3600);
-  $date=$date.'<br>';
+  $date=$date.'';
   class MyDB extends SQLite3
     { function __construct()
         { $this->open('database.db');
@@ -80,7 +80,7 @@ WiFi signal strenght: ".$signal."
     if(mail($to,$subject,$message, $headers))
     {
         echo "
-Email send from a device: ".$smartbox." <br>
+Email send from a device: ".$smartbox."
 Signal strenght: ".$signal."
 
 ";
@@ -92,7 +92,7 @@ if($signal<=-71){echo'[l][.][.][.]';}
     }
     else
     {
-        echo "error sending email";
+        echo "e-mail not sent. Check the server configuration";
     }}
 else{
 //phpinfo();

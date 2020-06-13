@@ -25,14 +25,14 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
+        <span class="icon-bar"></span>
       </button>
 
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
-      
+
     <ul class="nav navbar-nav">
-        <li class="active"><a href="">Smart Parcel Box</a></li>            
+        <li class="active"><a href="">Smart Parcel Box</a></li>
     </ul>
   </div>
 </nav>
@@ -44,8 +44,8 @@
 
 
 <div class="alert alert-success">
-  
-  
+
+
    <?php
 //destroying existing session
 
@@ -59,6 +59,7 @@ $_SESSION['username'] = '';
 
 
      if (isset($_GET["login"])){
+
           class MyDB extends SQLite3
    {
       function __construct()
@@ -70,10 +71,10 @@ $_SESSION['username'] = '';
    $id='';
    if(!$db){
       echo $db->lastErrorMsg();
+      echo'error';
    } else {
       //echo "Opened database successfully\n";
    }
-
    $sql ='SELECT * from USERS where USERNAME="'.$_POST["usr_name"].'";';
 
 
@@ -83,22 +84,22 @@ $_SESSION['username'] = '';
       $username=$row["USERNAME"];
       $password=$row['PASSWORD'];
   }
-  
+
     if ($id!=""){
         if ($password==$_POST["pwd"]){
 $time='36000';
-          
+
 setcookie("username", $username, time() + $time, '/');
 
-          header('Location: index.php'); 
+          header('Location: index.php');
 exit;
         }else{
-          
+
           echo '
-		  
-		  
-		  
-		  
+
+
+
+
 <div class="alert alert-danger">
   <strong>Wrong Password</strong> try again.
 </div>';
@@ -114,8 +115,8 @@ exit;
      }
 
 ?>
-  
-  
+
+
   <img src="lib1/img/smartbox.png"  style="width:30%">  <i><font size="4" color="black">Making sure your parcel will reach your box</font></i><br>
 <br>
 </div>

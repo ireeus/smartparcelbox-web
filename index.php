@@ -160,7 +160,6 @@ span.psw {
 </nav>
 </div>
 
-
 <?php
 ////////delete///////////
 
@@ -358,7 +357,8 @@ $error=2;
 
   $sql ='SELECT * from DEVICES where USERNAME="'.$active_user.'";';
   $ret = $db->query($sql);
-   echo '<br><br><br><b>Your Smart Parcel Boxes</b><br>
+   echo '<br><br>
+<br><br><b>Your Smart Parcel Boxes</b><br>
    <br>
    <table class="table">
     <thead>
@@ -382,7 +382,7 @@ $existing_mail=str_replace(",","<br>",$existing_mail);
 	$signal=$row['SIGNAL'];
     $date=$row['DATE'];
     $read=$row['READ'];
-	
+
    // $date= explode('::',$date);
 
 //$date['0'] = strtotime('-1 hour',$date['0']);

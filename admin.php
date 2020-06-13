@@ -178,7 +178,7 @@ if($_POST["devid"]!=''){if($_POST['activation']!=''){
 
  $sql ="INSERT INTO DEVICES (DEVICE,DESCRIPTION,MAIL,USERNAME,ACTIVATION_CODE,SIGNAL,DATE,MESSAGE)"."\n"."VALUES ( '".$_POST["devid"]."', '', '', '', '".$_POST['activation']."', '', '', '');";
 echo '<font color="green">'.$_POST["devid"].'</font> registered succesfully';
-echo'<script>window.location = "https://spb.5v.pl/admin.php"</script>';
+echo'<script>window.location = "admin.php"</script>';
 }else{echo 'Empty field';}
 }
 else{echo 'Empty field';}

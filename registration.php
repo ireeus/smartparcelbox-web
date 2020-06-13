@@ -44,6 +44,9 @@ session_start();
 
 
    if (isset($_GET["add"])){
+
+     echo $_POST["username"];
+
                class MyDB extends SQLite3
    {
       function __construct()

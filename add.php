@@ -196,7 +196,7 @@ if(isset($_POST['devid']) and isset($_POST['activation']))
             echo $db->lastErrorMsg();
              echo'error1';
         } else {
-                  echo'<script>window.location = "https://spb.5v.pl"</script>;
+                  echo'<script>window.location = "index.php"</script>;
 ';
         }
         $db->close();
