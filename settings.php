@@ -154,7 +154,7 @@ span.psw {
 						echo'<li><a href="admin.php">Register Device</a></li>';
 					}
 						echo $loginStatus;
-					?> 
+					?>
 
     </ul>
   </div>
@@ -162,7 +162,7 @@ span.psw {
 </div>
 <div > </div><div > </div>
 
-      <div class="col-xs-4">
+      <div class="col-xl-4">
 
 	  <form action="settings.php"  method="post" role="form">
 	  <br><br> <br><br>

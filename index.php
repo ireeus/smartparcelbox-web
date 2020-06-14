@@ -263,8 +263,10 @@ $edit_dev=$_POST['edit_dev'];
 
   $sql ='SELECT * from DEVICES where DEVICE="'.$edit_dev.'";';
   $ret = $db->query($sql);
-   echo '<form action="index.php" method="POST"> <br><br><br><b>Editing <font color="red">'. $edit_dev.'</font></b><br>
-   <br>
+   echo '<form action="index.php" method="POST"> <br><br><br><b>Editing <font color="red">'. $edit_dev.'</font></b>
+   <a href="http://cloudapps.zapto.org/spb/mail.php?smartbox='. $edit_dev.'&SIGNAL=';
+   echo "-".rand(49,100);
+   echo'" target="blank">test</a><br><br>
    <table class="table">
     <thead>
       <tr>
@@ -363,11 +365,10 @@ $error=2;
    <table class="table">
     <thead>
       <tr>
-        <th>Description</th>
-        <th>Notifications e-mail address</th>
+        <th>Details</th>
 		<th>Last Event</th>
-		<th>WiFi Signal</th>
-		<th></th>
+		<th>WiFi</th>
+		<th>Manage</th>
       </tr>
     </thead>
     <tbody>
@@ -398,9 +399,8 @@ echo'	<br>
 echo $existing_device;
 echo '</font> ';
 echo'
-</td>
-<td>
-<font color="green"> ';
+<br>
+<font color="green" size="1"> ';
 echo $existing_mail.'</font>
 </td>
 <td>';
@@ -414,10 +414,10 @@ echo'<a href="history.php?id='.$existing_device.'">'.$date.'</a>
 <td>';
 }
 
-if($signal>=-50){echo'<img src="lib1/img/100.png" width="35">';}
-if($signal<=-51 and $signal>=-60){echo'<img src="lib1/img/75.png" width="35">';}
-if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="35">';}
-if($signal<=-71){echo'<img src="lib1/img/25.png" width="35">';}
+if($signal>=-50){echo'<img src="lib1/img/100.png" width="20">';}
+if($signal<=-51 and $signal>=-60){echo'<img src="lib1/img/75.png" width="20">';}
+if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="20">';}
+if($signal<=-71){echo'<img src="lib1/img/25.png" width="20">';}
 echo'
 </td>
 <td><form action="index.php" method="POST">
@@ -470,3 +470,36 @@ echo'
 
 </body>
 </html>
+<?php
+
+////////setting the read value
+if(isset($_COOKIE['username'])){
+  $db->close();
+
+  $username=$_COOKIE['username'];
+
+
+    $db = new MyDB1();
+    $sql ='UPDATE DEVICES SET READ="0" WHERE USERNAME="'.$username.'"';
+
+  $ret = $db->exec($sql);
+    if(!$db){
+        echo $db->lastErrorMsg();
+
+    }
+
+  $ret = $db->exec($sql);
+  if(!$ret){
+      echo $db->lastErrorMsg();
+       echo'error1';
+  } else {
+
+  }
+  $db->close();
+
+      chmod("database.db", 0600);
+    }
+
+
+
+?>

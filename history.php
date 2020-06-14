@@ -13,7 +13,7 @@ elseif(!isset($_COOKIE['username'])){
      exit();}
 if($_COOKIE['username']!=$admin){ header('Location: login.php');}
 
-////////Delete
+////////setting the read value 
 if(isset($_GET['id'])){
     class MyDB1 extends SQLite3
     {
@@ -151,11 +151,11 @@ span.psw {
    <table class="table">
     <thead>
       <tr>
-        <th><center>TIMESTAMP</center></th>
-        <th><center>BOX ID</center></th>
-		<th><center>SIGNAL</center></th>
-		<th><center>STATUS</center></th>
-		<th><center>DELETE</center></th>
+        <th><center><font size="1">TIME</center></th>
+        <th><center><font size="1">BOX</center></th>
+		<th><center><font size="1">SIGNAL</center></th>
+		<th><center><font size="1">STATUS</center></th>
+		<th><center><font size="1">DELETE</center></th>
       </tr>
     </thead>
     <tbody>
@@ -232,25 +232,28 @@ $smartbox=$_GET['id'];
 
 echo '
       <tr>
-        <td><center>';
+        <td><center><font size="1"> ';
 echo $date;
 
 echo'
-</center></td>
+</font></center></td>
 <td><center>
-<font color="green"> ';
+<font color="green" size="1"> ';
 echo $device.'</font>
 </center></td>
 <td><center>';
 
 
-if($signal>=-50){echo'<img src="lib1/img/100.png" width="35">';}
-if($signal<=-51 and $signal>=-60){echo'<img src="lib1/img/75.png" width="35">';}
-if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="35">';}
-if($signal<=-71){echo'<img src="lib1/img/25.png" width="35">';}
+if($signal>=-50){echo'<img src="lib1/img/100.png" width="20">';}
+if($signal<=-51 and $signal>=-60){echo'<img src="lib1/img/75.png" width="20">';}
+if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="20">';}
+if($signal<=-71){echo'<img src="lib1/img/25.png" width="20">';}
 echo'</center>
 </td>
-<td><center>'.$status.'</center></td>
+<td><center>';
+if($status=='DELIVERY'){echo'<img width="20"src="lib1/img/ok.png">';}
+if($status=='LID ERROR'){echo'<img width="20"src="lib1/img/error.png">';}
+echo'</center></td>
 <td><center><a href="history.php?X='.$id.'&XDEV='.$smartbox.'">X</a></center></td>
       </tr>';
 }

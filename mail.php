@@ -92,7 +92,10 @@ if($signal<=-71){echo'[l][.][.][.]';}
     }
     else
     {
-        echo "e-mail not sent. Check the server configuration";
+        echo "Test string request submited. <br>
+Close this window and check the result or return to home page.
+However if you return to the main page all notifications will be reset on page reload.
+        <a href='index.php'>Return to home page</a>";
     }}
 else{
 //phpinfo();

@@ -215,11 +215,10 @@ Device ID:<br>
    <table class="table">
     <thead>
       <tr>
-        <th>Description</th>
-        <th>Notifications e-mail address</th>
+        <th>Details</th>
 		<th>Last Event</th>
 		<th>WiFi Signal</th>
-		<th></th>
+		<th>Manage</th>
       </tr>
     </thead>
     <tbody>
@@ -276,9 +275,8 @@ echo $activation_code;
 echo '</font> ';
 
 echo'
-</td>
-<td>
-<font color="green"> ';
+<br>
+<font color="green" size="1"> ';
 echo $existing_mail.'</font>
 </td>
 <td>';
