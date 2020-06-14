@@ -1,2 +1,2 @@
 # smartparcelbox-web
-Smart Parcel Box - Arduino + Web + Smart box 
+Smart Parcel Box - Arduino + Webapp + Smart Parcel Box
