@@ -31,14 +31,16 @@ $time= date("Y/m/d H:m:s");
        $read=$row['READ'];
   	   $day = explode(' - ', $date);
            if($i == 0){
-                  echo'{"title":"New delivery","text":"';
+             // in order to print the beginning of the json  the $state=1 is required and as soon as it prints the begining and middle the state needs changing to 0
+             $state="1";
                   }
        if($read==1){
+        if($state=="1") echo'{"title":"New delivery","text":"';
 
            $date = str_replace("<br>", '\n', $date);
 
            echo ' '.$date.' - '.$description.'\n';
-
+          $state="0";
          }
          $i++;
        }
