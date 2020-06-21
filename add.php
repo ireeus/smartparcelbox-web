@@ -112,7 +112,7 @@ Device ID:<br>
 <input type="text" required name="devid"><br>
  Activation Code:<br>
 <input type="text" required name="activation">
-<button> Register</button><br>
+<button> Register</button><br><br>
 </form>
 
 <?php
