@@ -657,7 +657,12 @@ echo'    </tbody>
 	  
 	  
 	  
-	  
+	   if(!$ret){
+        echo $db->lastErrorMsg();
+     } else {
+
+
+     $db->close();}
   if($sharing_user==$active_user){
 	  	  echo$sharing_device;
 
