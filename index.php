@@ -660,7 +660,16 @@ echo'    </tbody>
 	  echo$sharing_device;
 	  
   if($sharing_user==$active_user){
-
+      $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
+      $ret = $db->query($sql);
+	   while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+		         $sharing_mail=$row["MAIL"];
+      $sharing_device=$row['DEVICE'];
+      $sharing_user=$row['USERNAME'];
+      $description=$row['DESCRIPTION'];
+      $signal=$row['SIGNAL'];
+      $date=$row['DATE'];
+      $read=$row['READ'];
   echo '<tr>
           <td>';
   echo $description;
@@ -718,7 +727,7 @@ echo'    </tbody>
   }
 
 
-    }
+  }}
   }}
      $ret = $db->exec($sql);
      if(!$ret){
