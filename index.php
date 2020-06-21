@@ -646,9 +646,6 @@ echo'    </tbody>
      while($row = $ret->fetchArray(SQLITE3_ASSOC)){
 		 //$i=0;
       $sharing_device=$row['DEVICE'];
-
-      $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
-      $ret = $db->query($sql);
       $sharing_mail=$row["MAIL"];
       $sharing_mail=str_replace(",","<br>",$existing_mail);
       $sharing_device=$row['DEVICE'];
@@ -659,6 +656,8 @@ echo'    </tbody>
       $read=$row['READ'];
 	  $logged_user = $_COOKIE['username'];
   if($sharing_user==$logged_user){
+	  $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
+      $ret = $db->query($sql);
 
   echo '<tr>
           <td>';
