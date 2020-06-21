@@ -551,7 +551,7 @@ $error=2;
     $date=$row['DATE'];
     $read=$row['READ'];
 
-if($active_user!=$existing_user){
+if($active_user==$existing_user){
 
 echo '
       <tr>
@@ -657,7 +657,7 @@ echo'    </tbody>
       $signal=$row['SIGNAL'];
       $date=$row['DATE'];
       $read=$row['READ'];
-  if($sharing_device=$existing_device){
+  if($sharing_device==$existing_device){
 
   echo '<tr>
           <td>';
@@ -711,7 +711,7 @@ echo'    </tbody>
 
   </td>
         </tr>';
-		         $i++;
+		        
 
   }
 
