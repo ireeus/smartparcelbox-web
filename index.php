@@ -648,8 +648,7 @@ echo'    </tbody>
 		 
       $sharing_device=$row['DEVICE'];
 
-      $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
-      $ret = $db->query($sql);
+
       $sharing_mail=$row["MAIL"];
       $sharing_device=$row['DEVICE'];
       $sharing_user=$row['USERNAME'];
