@@ -146,7 +146,7 @@ span.psw {
     <ul class="nav navbar-nav">
         <li ><a href="index.php">Home</a></li>
           <li ><a href="add.php">Add Device</a></li>
-		  <li class="active"><a href="add.php">Settings</a></li>
+		  <li class="active"><a href="settings.php">Settings</a></li>
 
 		  		  <?php
 					include('config.php');
