@@ -164,9 +164,9 @@ span.psw {
 
       <div class="col-xl-4">
 
+<br><br> 
 
-
-    <form action="settings.php"  method="post" role="form">	  <br><br> <br><br>
+    <form action="settings.php"  method="post" role="form">	  <br><br>
     <h3>Mark as read</h3><br>
       <p><h4>Please select when a new event will be mark as seen:</h4></p>
     <input type="radio" id="homepage" name="page" value="homepage">
@@ -174,7 +174,7 @@ span.psw {
     <input type="radio" id="history" name="page" value="history">
     <label for="history">History(each device will need to be open to mark as read)</label><br>
     <br>	  <input type="submit" class="btn btn-success btn-xs" value="Save changes">
-<br>
+<br> <br>
 
   </form>
 <br>
