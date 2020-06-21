@@ -164,9 +164,23 @@ span.psw {
 
       <div class="col-xl-4">
 
-	  <form action="settings.php"  method="post" role="form">
 	  <br><br> <br><br>
-Change Password<br><br>
+    <h3>Read events</h3><br>
+
+    <form action="settings.php"  method="post" role="form">
+      <p><h4>Please select when a new event will be mark as seen:</h4></p>
+    <input type="radio" id="homepage" name="page" value="homepage">
+    <label for="homepage">Home page (all devices mark as read at once)</label><br>
+    <input type="radio" id="history" name="page" value="history">
+    <label for="history">History(each device will need to be open to mark as read)</label><br>
+    <br>	  <input type="submit" class="btn btn-success btn-xs" value="Save changes">
+<br>
+
+  </form>
+<br>
+    <form action="settings.php"  method="post" role="form">
+
+<h3>Change Password</h3><br>
         <label for="ex3">Current Password</label>
 		<input class="form-control" type="password" required name="currentpass">
 
@@ -182,7 +196,34 @@ Change Password<br><br>
 </form>
 
 <?php
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('database.db');
+    }
+}
+if(isset($_POST['page'])){
+  $page = $_POST['page'];
 
+  $db = new MyDB();
+  if(!$db){
+      echo $db->lastErrorMsg();
+  } else {
+    $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
+    $ret = $db->query($sql);
+    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+  echo $page;  echo $active_user;
+    $sql ='UPDATE USERS SET READPAGE="'.$page.'" WHERE USERNAME="'.$active_user.'" ';
+    $ret = $db->exec($sql);
+  }}
+  if(!$ret){
+      echo $db->lastErrorMsg();
+  } else {
+  }
+  $db->close();
+      chmod("database.db", 0600);
+}
 
 if((isset($_GET['error'])) and $_GET['error']=='1'){echo'Dont remember your password? Try again.';}
 if((isset($_GET['error'])) and $_GET['error']=='2'){echo'Passwords do not match.';}
@@ -202,13 +243,7 @@ if($_POST['newpass']!=$_POST['repeatnewpass']){ echo'<script>window.location = "
 
 die();}
 if($_POST['newpass']=="" or $_POST['repeatnewpass']==""){ echo'<script>window.location = "settings.php?error=3"</script>';die();}
-        class MyDB extends SQLite3
-        {
-            function __construct()
-            {
-                $this->open('database.db');
-            }
-        }
+
         $db = new MyDB();
         if(!$db){
             echo $db->lastErrorMsg();

@@ -77,7 +77,6 @@ $_SESSION['username'] = '';
    }
    $sql ='SELECT * from USERS where USERNAME="'.$_POST["usr_name"].'";';
 
-
    $ret = $db->query($sql);
    while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
       $id=$row['ID'];
@@ -87,9 +86,13 @@ $_SESSION['username'] = '';
 
     if ($id!=""){
         if ($password==$_POST["pwd"]){
-$time='36000';
-
+$expiry = $_POST["expiry"];
+$day='86400'; //24 hours
+$time =$day*$expiry;
+//$timestamp=date('Y-d-m');
+//$time=$timestamp+$time;
 setcookie("username", $username, time() + $time, '/');
+setcookie("expiry", $time, time() + $time, '/');
 
           header('Location: index.php');
 exit;
@@ -133,8 +136,15 @@ exit;
       <label for="pwd">Password:</label>
       <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter password">
     </div>
-    <div class="checkbox">
-    </div>
+    <label for="cars">Session expiry:</label>
+<br>
+    <select name="expiry" id="expiry" class="btn btn-secondary dropdown-toggle">
+      <option value="7">1 Week</option>
+      <option value="30">30 days</option>
+      <option value="182.5">6 months</option>
+      <option value="365">1 year</option>
+    </select>
+    <br><br>
     <button type="submit" class="btn btn-default">Submit</button>
   </form><br>
 <a href="registration.php">Register new account</a>

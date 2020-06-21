@@ -13,7 +13,7 @@ elseif(!isset($_COOKIE['username'])){
      exit();}
 if($_COOKIE['username']!=$admin){ header('Location: login.php');}
 
-////////setting the read value 
+////////setting the read value
 if(isset($_GET['id'])){
     class MyDB1 extends SQLite3
     {
@@ -164,9 +164,6 @@ span.psw {
 	// deleting items
 if((isset($_GET['X'])) and (isset($_GET['XDEV']))){
 
-
-
-
 	    class MyDB1 extends SQLite3
     {
         function __construct()
@@ -216,15 +213,17 @@ $smartbox=$_GET['id'];
 
   $sql ='SELECT * from HISTORY WHERE DEVICE ="'.$smartbox.'"';
   $ret = $db->query($sql);
-   echo '
+  //
 
-   ';
+
    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
      $id=$row['ID'];
      $date=$row['DATE'];
-    $device=$row['DEVICE'];
-	$signal=$row['SIGNAL'];
-    $status=$row['STATUS'];
+     $device=$row['DEVICE'];
+	   $signal=$row['SIGNAL'];
+     $status=$row['STATUS'];
+
+
    // $date= explode('::',$date);
 
 //$date['0'] = strtotime('-1 hour',$date['0']);
