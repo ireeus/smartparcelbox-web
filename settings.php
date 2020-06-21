@@ -164,9 +164,9 @@ span.psw {
 
       <div class="col-xl-4">
 
-<br><br> 
+<br><br> <br>
 
-    <form action="settings.php"  method="post" role="form">	  <br><br>
+    <form action="settings.php"  method="post" role="form">	  <br>
     <h3>Mark as read</h3><br>
       <p><h4>Please select when a new event will be mark as seen:</h4></p>
     <input type="radio" id="homepage" name="page" value="homepage">
