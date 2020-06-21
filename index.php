@@ -551,7 +551,7 @@ $error=2;
     $date=$row['DATE'];
     $read=$row['READ'];
 
-if($active_user=$existing_user){
+if($active_user==$existing_user and $i==0){
 
 echo '
       <tr>
@@ -644,6 +644,7 @@ echo'    </tbody>
 
      ';
      while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+		 $i=0;
       $sharing_device=$row['DEVICE'];
 
       $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
@@ -710,6 +711,8 @@ echo'    </tbody>
 
   </td>
         </tr>';
+		         $i++;
+
   }
 
 
