@@ -661,6 +661,63 @@ echo'    </tbody>
 	  
 	  echo$sharing_device;
 	  
+  if($sharing_device==$existing_device){
+
+  echo '<tr>
+          <td>';
+  echo $description;
+  echo'	<br>
+  <font color="blue" size="1"> ID:';
+  echo $existing_device;
+  echo '</font> ';
+  $button='Show e-mail';
+  if($existing_mail==''){
+    $existing_mail='Edit the device to add the email. It will let you receive event messages.';
+    $button='No email';
+  }
+  echo'
+  <br>
+  <p>
+    <button class="btn btn-link btn-sm" type="button" data-toggle="collapse" data-target="#'.$existing_device.'" aria-expanded="false" aria-controls="'.$existing_device.'">
+      '.$button.'
+    </button>
+  </p>
+  <div class="collapse" id="'.$existing_device.'">
+    <div class="card card-body">
+  '.$existing_mail.'</div>
+  </div>
+
+
+
+  </td>
+  <td>';
+  $day = explode(' - ', $date);
+  if($read=='1'){echo
+  '<b><a href="history.php?id='.$existing_device.'">'.$date.'</a><b/><span><img width="25" src="lib1/img/box.png"></span></td>
+  <td>';}
+  else{
+  echo'<a href="history.php?id='.$existing_device.'">'.$date.'</a>
+  </td>
+  <td>';
+  }
+
+  if($signal>=-50){echo'<img src="lib1/img/100.png" width="20">';}
+  if($signal<=-51 and $signal>=-60){echo'<img src="lib1/img/75.png" width="20">';}
+  if($signal<=-61 and $signal>=-70){echo'<img src="lib1/img/50.png" width="20">';}
+  if($signal<=-71){echo'<img src="lib1/img/25.png" width="20">';}
+  echo'
+  </td>
+  <td><form action="index.php" method="POST">
+  <input type="hidden" name="username">
+    <input type="hidden" value="'.$existing_device.'" name="edit_dev">
+    <input  type="submit" class="btn btn-primary btn-xs" value="Edit device"></form>
+
+
+  </td>
+        </tr>';
+		        
+
+  }
 
 
     }
