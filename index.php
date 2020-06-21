@@ -658,7 +658,7 @@ echo'    </tbody>
       $date=$row['DATE'];
       $read=$row['READ'];
 	  $logged_user = $_COOKIE['username'];
-  if($sharing_user=$loged_user){
+  if($sharing_user=$logged_user){
 
   echo '<tr>
           <td>';
