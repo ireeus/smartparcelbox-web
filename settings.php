@@ -170,7 +170,7 @@ span.psw {
     <h3>Mark as read</h3><br>
       <p><h4>Please select when a new event will be mark as seen:</h4></p>
     <input type="radio" id="homepage" name="page" value="homepage">
-    <label for="homepage">Home page (all devices mark as read at once)</label><br>
+    <label for="homepage">Home page (all devices mark as read at once - only owned devices)</label><br>
     <input type="radio" id="history" name="page" value="history">
     <label for="history">History(each device will need to be open to mark as read)</label><br>
     <br>	  <input type="submit" class="btn btn-success btn-xs" value="Save changes">
