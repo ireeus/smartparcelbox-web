@@ -619,9 +619,10 @@ echo'
    }
    $db->close();
 }
-//// shared devices database
 echo'    </tbody>
   </table>';
+
+//// shared devices database
 
 /*
 
