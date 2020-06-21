@@ -339,9 +339,9 @@ echo'
 	  <input type="submit" class="btn btn-success btn-xl" value="Save changes">
 
 	  </form>
-<!-- <br>  <br>  <form action="index.php" method="POST">
+<br>  <br>  <form action="index.php" method="POST">
   <input type="hidden" value="'.$existing_device.'"name="sharing">
-  <input type="submit" class="btn btn-default btn-xs" value="Sharing '.$existing_device.'"></form>-->
+  <input type="submit" class="btn btn-default btn-xs" value="Sharing '.$existing_device.'"></form>
   <br>
 
 <br>
