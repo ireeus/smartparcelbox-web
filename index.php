@@ -30,9 +30,10 @@ if((isset($_GET['X'])) and (isset($_GET['XDEV']))){
 
       $sql ='DELETE from SHARED where ID="'.$_GET['X'].'" and DEVICE="'.$_GET['XDEV'].'";';
       $ret = $db->query($sql);
-  echo'<script>window.location = "index.php?X='.$_GET['XDEV'].'"</script>';
-
-
+      if(isset($_GET['SHARED'])){echo'<script>window.location = "index.php"</script>';
+      }
+      if(!isset($_GET['SHARED'])){echo'<script>window.location = "index.php?X='.$_GET['XDEV'].'"</script>';
+      }
 
   }
 }
@@ -474,7 +475,7 @@ elseif((isset($_POST['sharing_email'])) and (isset($_POST['sharing_device']))) {
       echo'<script>window.location = "index.php?X='.$_POST["sharing_device"].'"</script>';
 
         while($row = $ret->fetchArray(SQLITE3_ASSOC)){
-$user_shared_with=$row['USERNAME'];
+          $user_shared_with=$row['USERNAME'];
           if($_POST["sharing_email"]==$row['MAIL']){
 
 
@@ -649,9 +650,7 @@ echo'    </tbody>
       $signal=$row['SIGNAL'];
       $date=$row['DATE'];
       $read=$row['READ'];
-
-
-
+      $id=$row["ID"];
 
 
   if($sharing_user==$active_user){
@@ -665,14 +664,14 @@ echo'    </tbody>
       $sql1 ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
       $ret1 = $db1->query($sql1);
 	       while($row1 = $ret1->fetchArray(SQLITE3_ASSOC)){
-	$sharing_mail=$row1["MAIL"];
-    $sharing_mail=str_replace(",","<br>",$sharing_mail);
-    $sharing_device=$row1['DEVICE'];
-    $sharing_user=$row1['USERNAME'];
-	$description=$row1['DESCRIPTION'];
-	 $signal=$row1['SIGNAL'];
-    $date=$row1['DATE'];
-    $read=$row1['READ'];
+           $sharing_mail=$row1["MAIL"];
+           $sharing_mail=str_replace(",","<br>",$sharing_mail);
+           $sharing_device=$row1['DEVICE'];
+           $sharing_user=$row1['USERNAME'];
+           $description=$row1['DESCRIPTION'];
+           $signal=$row1['SIGNAL'];
+           $date=$row1['DATE'];
+           $read=$row1['READ'];
 
 
 
@@ -722,7 +721,8 @@ echo'    </tbody>
   if($signal<=-71){echo'<img src="lib1/img/25.png" width="20">';}
   echo'
   </td>
-  <td>><a href="index.php?X='.$id.'&XDEV='.$sharing_device.'">X</a></center>
+  <td>
+  <a href="index.php?X='.$id.'&XDEV='.$sharing_device.'&SHARED"><input  type="submit" class="btn btn-warning btn-xs" value="Delete '.$id.'"></a></center>
 
 
   </td>
