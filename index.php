@@ -646,8 +646,6 @@ echo'    </tbody>
      while($row = $ret->fetchArray(SQLITE3_ASSOC)){
 
 		 
-      $sharing_device=$row['DEVICE'];
-
 
       $sharing_mail=$row["MAIL"];
       $sharing_device=$row['DEVICE'];
@@ -661,30 +659,30 @@ echo'    </tbody>
 	  
 	  echo$sharing_device;
 	  
-  if($sharing_device==$existing_device){
+  if($sharing_user==$active_user){
 
   echo '<tr>
           <td>';
   echo $description;
   echo'	<br>
   <font color="blue" size="1"> ID:';
-  echo $existing_device;
+  echo $sharing_device;
   echo '</font> ';
   $button='Show e-mail';
-  if($existing_mail==''){
-    $existing_mail='Edit the device to add the email. It will let you receive event messages.';
+  if($sharing_mail==''){
+    $sharing_mail='Edit the device to add the email. It will let you receive event messages.';
     $button='No email';
   }
   echo'
   <br>
   <p>
-    <button class="btn btn-link btn-sm" type="button" data-toggle="collapse" data-target="#'.$existing_device.'" aria-expanded="false" aria-controls="'.$existing_device.'">
+    <button class="btn btn-link btn-sm" type="button" data-toggle="collapse" data-target="#'.$sharing_device.'" aria-expanded="false" aria-controls="'.$sharing_device.'">
       '.$button.'
     </button>
   </p>
-  <div class="collapse" id="'.$existing_device.'">
+  <div class="collapse" id="'.$sharing_device.'">
     <div class="card card-body">
-  '.$existing_mail.'</div>
+  '.$sharing_mail.'</div>
   </div>
 
 
@@ -693,10 +691,10 @@ echo'    </tbody>
   <td>';
   $day = explode(' - ', $date);
   if($read=='1'){echo
-  '<b><a href="history.php?id='.$existing_device.'">'.$date.'</a><b/><span><img width="25" src="lib1/img/box.png"></span></td>
+  '<b><a href="history.php?id='.$sharing_device.'">'.$date.'</a><b/><span><img width="25" src="lib1/img/box.png"></span></td>
   <td>';}
   else{
-  echo'<a href="history.php?id='.$existing_device.'">'.$date.'</a>
+  echo'<a href="history.php?id='.$sharing_device.'">'.$date.'</a>
   </td>
   <td>';
   }
@@ -709,7 +707,7 @@ echo'    </tbody>
   </td>
   <td><form action="index.php" method="POST">
   <input type="hidden" name="username">
-    <input type="hidden" value="'.$existing_device.'" name="edit_dev">
+    <input type="hidden" value="'.$sharing_device.'" name="edit_dev">
     <input  type="submit" class="btn btn-primary btn-xs" value="Edit device"></form>
 
 
