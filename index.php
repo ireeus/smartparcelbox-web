@@ -551,7 +551,7 @@ $error=2;
     $date=$row['DATE'];
     $read=$row['READ'];
 
-if($active_user==$existing_user and $i==0){
+if($active_user!=$existing_user){
 
 echo '
       <tr>
