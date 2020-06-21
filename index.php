@@ -665,6 +665,7 @@ echo'    </tbody>
       $ret1 = $db1->query($sql1);
 	       while($row = $ret1->fetchArray(SQLITE3_ASSOC)){
 			   	  echo$sharing_device;
+				  echo'dddddddddddd';
 
 			   
 			   
