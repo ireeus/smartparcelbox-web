@@ -644,21 +644,26 @@ echo'    </tbody>
 
      ';
      while($row = $ret->fetchArray(SQLITE3_ASSOC)){
-		 //$i=0;
+
+		 
       $sharing_device=$row['DEVICE'];
+
+      $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
+      $ret = $db->query($sql);
       $sharing_mail=$row["MAIL"];
-      $sharing_mail=str_replace(",","<br>",$existing_mail);
       $sharing_device=$row['DEVICE'];
       $sharing_user=$row['USERNAME'];
       $description=$row['DESCRIPTION'];
       $signal=$row['SIGNAL'];
       $date=$row['DATE'];
       $read=$row['READ'];
-	  $logged_user = $_COOKIE['username'];
-  if($sharing_user==$logged_user){
-	  $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
-      $ret = $db->query($sql);
-while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+	  
+	  
+	  
+	  echo$sharing_device;
+	  
+  if($sharing_device==$existing_device){
+
   echo '<tr>
           <td>';
   echo $description;
@@ -714,7 +719,7 @@ while($row = $ret->fetchArray(SQLITE3_ASSOC)){
 		        
 
   }
-	 }
+
 
     }
   }}
