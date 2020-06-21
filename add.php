@@ -11,7 +11,6 @@ elseif(!isset($_COOKIE['username'])){
      exit();}
 ?>
 
-
 <style>/* Bordered form */
 form {
   border: 3px solid #f1f1f1;
