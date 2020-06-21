@@ -107,12 +107,12 @@ span.psw {
 </div>
 <br><br><br><br>
 
-<form action="add.php"  method="post" role="form">
+<form action="add.php"  method="post" role="form"><br>
 Device ID:<br>
 <input type="text" required name="devid"><br>
  Activation Code:<br>
 <input type="text" required name="activation">
-<button> Register</button>
+<button> Register</button><br>
 </form>
 
 <?php
