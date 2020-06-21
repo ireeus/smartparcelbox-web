@@ -192,7 +192,7 @@ span.psw {
  <br>
         <label for="ex3">Repeat Password</label>
 		<input class="form-control" type="password" required name="repeatnewpass">
-<br><button> Change Password</button><br>
+<br><button> Change Password</button><br><br>
 </form>
 
 <?php
