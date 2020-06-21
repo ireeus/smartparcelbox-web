@@ -658,7 +658,7 @@ echo'    </tbody>
   if($sharing_user==$logged_user){
 	  $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
       $ret = $db->query($sql);
-
+while($row = $ret->fetchArray(SQLITE3_ASSOC)){
   echo '<tr>
           <td>';
   echo $description;
@@ -714,7 +714,7 @@ echo'    </tbody>
 		        
 
   }
-
+	 }
 
     }
   }}
