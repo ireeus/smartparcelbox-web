@@ -624,7 +624,7 @@ echo'    </tbody>
 
 //// shared devices database
 
-/*
+//*
 
   //////////////////Preview/////////////////////
   $today_date= date("Y/m/d", time()-3600);
@@ -729,7 +729,7 @@ echo'    </tbody>
 
 
 
-*/
+//*/
 }
 
 ?>
