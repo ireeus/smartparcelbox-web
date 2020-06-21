@@ -640,7 +640,7 @@ echo'    </tbody>
 
      while($row = $ret->fetchArray(SQLITE3_ASSOC)){
 
-		 
+
 
       $sharing_mail=$row["MAIL"];
       $sharing_device=$row['DEVICE'];
@@ -649,11 +649,11 @@ echo'    </tbody>
       $signal=$row['SIGNAL'];
       $date=$row['DATE'];
       $read=$row['READ'];
-	  
-	  
-	  
-	 
-	  
+
+
+
+
+
   if($sharing_user==$active_user){
 	       echo '<b>Shared Parcel Boxes</b>
      <table class="table">
@@ -674,8 +674,8 @@ echo'    </tbody>
     $date=$row1['DATE'];
     $read=$row1['READ'];
 
-			   
-			   
+
+
 		   }
 
   echo '<tr>
@@ -722,15 +722,12 @@ echo'    </tbody>
   if($signal<=-71){echo'<img src="lib1/img/25.png" width="20">';}
   echo'
   </td>
-  <td><form action="index.php" method="POST">
-  <input type="hidden" name="username">
-    <input type="hidden" value="'.$sharing_device.'" name="edit_dev">
-    <input  type="submit" class="btn btn-primary btn-xs" value="Edit device"></form>
+  <td>><a href="index.php?X='.$id.'&XDEV='.$sharing_device.'">X</a></center>
 
 
   </td>
         </tr>';
-		        
+
 
   }
 
