@@ -657,11 +657,19 @@ echo'    </tbody>
 	  
 	  
 	  
-	  echo$sharing_device;
+	 
 	  
   if($sharing_user==$active_user){
-      $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
-      $ret = $db->query($sql);
+	  $db1 = new MyDB();
+      $sql1 ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
+      $ret1 = $db1->query($sql1);
+	       while($row = $ret1->fetchArray(SQLITE3_ASSOC)){
+			   	  echo$sharing_device;
+
+			   
+			   
+		   }
+
   echo '<tr>
           <td>';
   echo $description;
