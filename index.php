@@ -664,7 +664,10 @@ echo'    </tbody>
 
      $db->close();}
   if($sharing_user==$active_user){
-
+ $db = new MyDB();
+  if(!$db){
+     echo $db->lastErrorMsg();
+  } else {
       $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
       $ret = $db->query($sql);
 	   while($row = $ret->fetchArray(SQLITE3_ASSOC)){
@@ -734,7 +737,7 @@ echo'    </tbody>
 
   }
 
-
+  }
   }}
   }}
      $ret = $db->exec($sql);
