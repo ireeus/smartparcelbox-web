@@ -622,11 +622,11 @@ echo'
 echo'    </tbody>
   </table>';
 
-//// shared devices database
+//// shared devices database ///////////////////////////////////////////////////////////////
 
 //*
 
-  //////////////////Preview/////////////////////
+  //////////////////Preview shared/////////////////////
   $today_date= date("Y/m/d", time()-3600);
 
 
@@ -649,15 +649,16 @@ echo'    </tbody>
 
       $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
       $ret = $db->query($sql);
-      $existing_mail=$row["MAIL"];
-      $existing_mail=str_replace(",","<br>",$existing_mail);
-      $existing_device=$row['DEVICE'];
-      $existing_user=$row['USERNAME'];
+      $sharing_mail=$row["MAIL"];
+      $sharing_mail=str_replace(",","<br>",$existing_mail);
+      $sharing_device=$row['DEVICE'];
+      $sharing_user=$row['USERNAME'];
       $description=$row['DESCRIPTION'];
       $signal=$row['SIGNAL'];
       $date=$row['DATE'];
       $read=$row['READ'];
-  if($sharing_device==$existing_device){
+	  $logged_user = $_COOKIE['username'];
+  if($sharing_user=$loged_user){
 
   echo '<tr>
           <td>';
