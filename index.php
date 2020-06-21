@@ -663,7 +663,7 @@ echo'    </tbody>
 	  $db1 = new MyDB();
       $sql1 ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
       $ret1 = $db1->query($sql1);
-	       while($row = $ret1->fetchArray(SQLITE3_ASSOC)){
+	       while($row1 = $ret1->fetchArray(SQLITE3_ASSOC)){
 	$sharing_mail=$row1["MAIL"];
     $sharing_mail=str_replace(",","<br>",$sharing_mail);
     $sharing_device=$row1['DEVICE'];
