@@ -664,11 +664,13 @@ echo'    </tbody>
 
      $db->close();}
   if($sharing_user==$active_user){
-	  	  echo$sharing_device;
 
       $sql ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
       $ret = $db->query($sql);
 	   while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+		   	  	  echo$sharing_device;
+
+		   
 		         $sharing_mail=$row["MAIL"];
       $sharing_device=$row['DEVICE'];
       $sharing_user=$row['USERNAME'];
