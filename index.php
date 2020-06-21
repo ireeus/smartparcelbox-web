@@ -637,12 +637,7 @@ echo'    </tbody>
     $sql ='SELECT * from SHARED where USERNAME="'.$active_user.'";';
     $ret = $db->query($sql);
     //echo$sql;
-     echo '<b>Shared Parcel Boxes</b>
-     <table class="table">
 
-      <tbody>
-
-     ';
      while($row = $ret->fetchArray(SQLITE3_ASSOC)){
 
 		 
@@ -660,6 +655,12 @@ echo'    </tbody>
 	 
 	  
   if($sharing_user==$active_user){
+	       echo '<b>Shared Parcel Boxes</b>
+     <table class="table">
+
+      <tbody>
+
+     ';
 	  $db1 = new MyDB();
       $sql1 ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
       $ret1 = $db1->query($sql1);
