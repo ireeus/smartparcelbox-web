@@ -11,7 +11,7 @@ if(isset($_COOKIE['username'])){$loginStatus = '<li ><a href="login.php"><font c
 elseif(!isset($_COOKIE['username'])){
     header('Location: login.php');
      exit();}
-if($_COOKIE['username']!=$admin){ header('Location: login.php');}
+//if($_COOKIE['username']!=$admin){ header('Location: login.php');}
 
 ////////setting the read value
 if(isset($_GET['id'])){
