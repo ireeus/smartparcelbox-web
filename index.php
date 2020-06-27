@@ -11,7 +11,7 @@ if(isset($_COOKIE['username'])){$loginStatus = '<li ><a href="login.php"><font c
 elseif(!isset($_COOKIE['username'])){header('Location: login.php');
 exit();}
 // deleting shared items
-if((isset($_GET['X'])) and (isset($_GET['XDEV']))){
+if(isset($_POST['delete_shared_dev'])){
 
     class MyDB1 extends SQLite3
   {
@@ -28,7 +28,7 @@ if((isset($_GET['X'])) and (isset($_GET['XDEV']))){
 
   } else {
 
-      $sql ='DELETE from SHARED where ID="'.$_GET['X'].'" and DEVICE="'.$_GET['XDEV'].'";';
+      $sql ='DELETE from SHARED where DEVICE="'.$_POST['delete_shared_dev'].'";';
       $ret = $db->query($sql);
       if(isset($_GET['SHARED'])){echo'<script>window.location = "index.php"</script>';
       }
@@ -266,7 +266,36 @@ $ret = $db->exec($sql);
 }
 }
 }
+///////////EDIT shared//////////////
+if(isset($_POST['edit_shared_description'])){
+    if($error!=1){
 
+        class MyDB2 extends SQLite3
+        {
+            function __construct()
+            {
+                $this->open('database.db');
+
+            }
+
+        }
+    $db = new MyDB2();
+	$username = $_COOKIE['username'];
+	$edit_device = $_POST['edit_shared_device'];
+	$edit_mail = $_POST['edit_shared_mail'];
+	$edit_description = $_POST['edit_shared_description'];
+	$edit_message = $_POST['edit_shared_message'];
+$sql ='UPDATE SHARED SET MAIL="'.$edit_mail.'", DESCRIPTION="'.$edit_description .'", MESSAGE="'.$edit_message.'" WHERE USERNAME="'.$username.'" AND DEVICE="'.$edit_device.'"';
+$ret = $db->exec($sql);
+        if(!$ret){
+            echo $db->lastErrorMsg();
+             echo'error1';
+		$db->close();
+        chmod("database.db", 0600);
+}
+}
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_POST['edit_dev'])){
 $edit_dev=$_POST['edit_dev'];
 	$error=2;
@@ -367,6 +396,104 @@ echo'
 
 
 }
+elseif(isset($_POST['edit_shared_dev'])){
+$edit_dev=$_POST['edit_shared_dev'];
+	$error=2;
+      if($error!=1){
+               class MyDB extends SQLite3
+   {
+      function __construct()
+      {
+         $this->open('database.db');
+      }
+   }
+   $db = new MyDB();
+   if(!$db){
+      echo $db->lastErrorMsg();
+   } else {
+   $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
+   $ret = $db->query($sql);
+    while($row1 = $ret->fetchArray(SQLITE3_ASSOC)){
+      $mail=$row1["MAIL"];}
+
+  $sql ='SELECT * from SHARED where DEVICE="'.$edit_dev.'";';
+  $ret = $db->query($sql);
+   echo '<form action="index.php" method="POST"> <br><br><br><b>Editing <font color="red">'. $edit_dev.'</font></b>
+   <a href="http://cloudapps.zapto.org/spb/mail.php?smartbox='. $edit_dev.'&SIGNAL=';
+   echo "-".rand(49,100);
+   echo'" target="blank">test</a> <br><br>
+   <table class="table">
+    <thead>
+      <tr>
+
+        <th>Description</th>
+        <th>Notifications e-mail</th>
+		<th> message</th>
+<th></th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+   ';
+   while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+    $existing_mail=$row["MAIL"];
+    $existing_device=$row['DEVICE'];
+    $existing_user=$row['USERNAME'];
+	$description=$row['DESCRIPTION'];
+	$message=$row['MESSAGE'];
+
+if($active_user=$existing_user){
+
+echo '
+      <tr>
+';
+
+echo '
+
+<td><input type="hidden" value="'. $existing_device.'" name="edit_shared_device">
+<input type="text" value="'.$description.'" name="edit_shared_description">
+</td>
+<td>
+<font color="green"> ';
+
+echo '<input type="text" value="'.$existing_mail.'" name="edit_shared_mail">';
+echo'</font>
+</td>
+<td>';
+echo '<input type="text" value="'.$message.'" name="edit_shared_message">';
+echo'
+</td>
+</tr>
+
+	  <input type="submit" class="btn btn-success btn-xl" value="Save changes">
+
+	  </form>
+
+  <br>
+
+<br>
+      <form action="index.php" method="POST">
+    <input type="hidden" name="username">
+      <input type="hidden" value="'.$existing_device.'"name="delete_shared_dev">
+      <input type="submit" class="btn btn-danger btn-xs" value="Delete '.$existing_device.'"></form>
+    ';
+}
+
+
+  }
+ }
+   $ret = $db->exec($sql);
+   if(!$ret){
+      echo $db->lastErrorMsg();
+   } else {
+
+   }
+   $db->close();
+}
+
+
+}
 ///SHARING
 elseif((isset($_POST['sharing'])) or  (isset($_GET['X']))){
   if(isset($_POST['sharing'])){$sharing_device=$_POST['sharing'];
@@ -418,7 +545,7 @@ echo'
   //
    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
      $id=$row['ID'];
-     $email=$row['EMAIL'];
+     $email=$row['MAIL'];
      $device=$row['DEVICE'];
 	   $username=$row['USERNAME'];
 echo '
@@ -432,10 +559,10 @@ echo'
 <font color="green" size="1"> ';
 echo $device.'</font>
 </center></td>
-<td><center>';
-if($status=='DELIVERY'){echo'<img width="20"src="lib1/img/ok.png">';}
-if($status=='LID ERROR'){echo'<img width="20"src="lib1/img/error.png">';}
-echo'</center></td>
+<td><center><font size="1">';
+//Accessing SHARED to find the device to print out
+echo $username;
+echo'</font></center></td>
 <td><center><a href="index.php?X='.$id.'&XDEV='.$sharing_device.'">X</a></center></td>
       </tr>';
 }
@@ -487,7 +614,7 @@ elseif((isset($_POST['sharing_email'])) and (isset($_POST['sharing_device']))) {
             }
 
 
-              $sql ="INSERT INTO SHARED (EMAIL,DEVICE,USERNAME)"."\n"."VALUES ('".$_POST["sharing_email"]."', '".$_POST["sharing_device"]."','$user_shared_with');";
+              $sql ="INSERT INTO SHARED (DEVICE,DESCRIPTION,MAIL,USERNAME,SIGNAL,DATE,MESSAGE,READ)"."\n"."VALUES ('".$_POST["sharing_device"]."','','".$_POST["sharing_email"]."', '$user_shared_with','','','','');";
               $ret = $db->exec($sql);
               echo"<br><br><br><br><br>". $_POST["sharing_device"]." is now shared with ".$_POST["sharing_email"].". ";
 
@@ -620,8 +747,7 @@ echo'
    }
    $db->close();
 }
-echo'    </tbody>
-  </table>';
+
 
 //// shared devices database ///////////////////////////////////////////////////////////////
 
@@ -654,14 +780,9 @@ echo'    </tbody>
 
 
   if($sharing_user==$active_user){
-	       echo '<b>Shared Parcel Boxes</b>
-     <table class="table">
 
-      <tbody>
-
-     ';
 	  $db1 = new MyDB();
-      $sql1 ='SELECT * from DEVICES where DEVICE="'.$sharing_device.'";';
+      $sql1 ='SELECT * from SHARED where DEVICE="'.$sharing_device.'";';
       $ret1 = $db1->query($sql1);
 	       while($row1 = $ret1->fetchArray(SQLITE3_ASSOC)){
            $sharing_mail=$row1["MAIL"];
@@ -686,7 +807,7 @@ echo'    </tbody>
   echo '</font> ';
   $button='Show e-mail';
   if($sharing_mail==''){
-    $sharing_mail='Edit the device to add the email. It will let you receive event messages.';
+    $sharing_mail='Shared boxes are not allowed to sen emails.';
     $button='No email';
   }
   echo'
@@ -722,7 +843,10 @@ echo'    </tbody>
   echo'
   </td>
   <td>
-  <a href="index.php?X='.$id.'&XDEV='.$sharing_device.'&SHARED"><input  type="submit" class="btn btn-warning btn-xs" value="Delete '.$id.'"></a></center>
+  <form action="index.php" method="POST">
+  <input type="hidden" name="username">
+    <input type="hidden" value="'.$sharing_device.'" name="edit_shared_dev">
+    <input  type="submit" class="btn btn-info btn-xs" value="Edit shared"></form>
 
 
   </td>
@@ -783,10 +907,14 @@ if(isset($_COOKIE['username'])){
       $readpage=$row['READPAGE'];
       if($readpage=='history'){}
       if($readpage=='homepage'){
-          $db = new MyDB1();
-          $sql ='UPDATE DEVICES SET READ="0" WHERE USERNAME="'.$username.'"';
+        $db = new MyDB1();
 
+        $sql ='UPDATE SHARED SET READ="0" WHERE USERNAME="'.$username.'"';
         $ret = $db->exec($sql);
+
+        $sql1 ='UPDATE DEVICES SET READ="0" WHERE USERNAME="'.$username.'"';
+        $ret = $db->exec($sql1);
+
           if(!$db){
               echo $db->lastErrorMsg();
 

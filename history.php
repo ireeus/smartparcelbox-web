@@ -26,7 +26,10 @@ if(isset($_GET['id'])){
     }
     $db = new MyDB1();
 	$devid=$_GET['id'];
-                    $sql ='UPDATE DEVICES SET READ="0" WHERE DEVICE="'.$devid.'"';
+  $sql ='UPDATE DEVICES SET READ="0" WHERE DEVICE="'.$devid.'"';
+
+$ret = $db->exec($sql);
+$sql ='UPDATE SHARED SET READ="0" WHERE DEVICE="'.$devid.'"';
 
   $ret = $db->exec($sql);
     if(!$db){
@@ -148,17 +151,7 @@ span.psw {
 
 <DIV class="panel">
 <BR>
-   <table class="table">
-    <thead>
-      <tr>
-        <th><center><font size="1">TIME</center></th>
-        <th><center><font size="1">BOX</center></th>
-		<th><center><font size="1">SIGNAL</center></th>
-		<th><center><font size="1">STATUS</center></th>
-		<th><center><font size="1">DELETE</center></th>
-      </tr>
-    </thead>
-    <tbody>
+
 
 <?php
 	// deleting items
@@ -214,7 +207,7 @@ $smartbox=$_GET['id'];
   $sql ='SELECT * from HISTORY WHERE DEVICE ="'.$smartbox.'"';
   $ret = $db->query($sql);
   //
-
+$d=0;
 
    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
      $id=$row['ID'];
@@ -222,12 +215,25 @@ $smartbox=$_GET['id'];
      $device=$row['DEVICE'];
 	   $signal=$row['SIGNAL'];
      $status=$row['STATUS'];
+     $username=$row['USERNAME'];
+if ($d==0){
+  echo'   <table class="table">
+      <thead>
+        <tr>
+          <th><center><font size="1">TIME</center></th>
+          <th><center><font size="1">BOX</center></th>
+          <th><center><font size="1">SIGNAL</center></th>
+          <th><center><font size="1">STATUS</center></th>';
+          if($active_user==$username){  echo'<th><center><font size="1">DELETE</center></th>
+';
+          }
+          echo'
+        </tr>
+      </thead>
+      <tbody>';
+      $d++;
+}
 
-
-   // $date= explode('::',$date);
-
-//$date['0'] = strtotime('-1 hour',$date['0']);
-//$date['0'] = date( 'Y/m/d - h:i:sa' ,  );
 
 echo '
       <tr>
@@ -252,9 +258,11 @@ echo'</center>
 <td><center>';
 if($status=='DELIVERY'){echo'<img width="20"src="lib1/img/ok.png">';}
 if($status=='LID ERROR'){echo'<img width="20"src="lib1/img/error.png">';}
-echo'</center></td>
-<td><center><a href="history.php?X='.$id.'&XDEV='.$smartbox.'">X</a></center></td>
-      </tr>';
+echo'</center></td>';
+if($active_user==$username){  echo'<td><center><a href="history.php?X='.$id.'&XDEV='.$smartbox.'">X</a></center></td>';
+}
+
+    echo  '</tr>';
 }
 
   }

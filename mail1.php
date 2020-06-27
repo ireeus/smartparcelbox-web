@@ -35,7 +35,7 @@ $date=$date.'<br>Lid open';
     $ret = $db->exec($sql);
 		$sql ='UPDATE DEVICES SET READ="1" WHERE  DEVICE="'.$smartbox.'"';
     $ret = $db->exec($sql);
-    $sql ="INSERT INTO HISTORY (DATE,DEVICE,SIGNAL,STATUS)"."\n"."VALUES ('".$date."', '".$smartbox."', '".$signal."','LID ERROR');";
+    $sql ="INSERT INTO HISTORY (DATE,DEVICE,SIGNAL,STATUS,USERNAME)"."\n"."VALUES ('".$date."', '".$smartbox."', '".$signal."','LID ERROR', '".$existing_user."');";
     $ret = $db->exec($sql);
         if(!$ret){
             echo $db->lastErrorMsg();

@@ -162,39 +162,6 @@ span.psw {
 </div>
 <div > </div><div > </div>
 
-      <div class="col-xl-4">
-
-<br><br> <br>
-
-    <form action="settings.php"  method="post" role="form">	  <br>
-    <h3>Mark as read</h3><br>
-      <p><h4>Please select when a new event will be mark as seen:</h4></p>
-    <input type="radio" id="homepage" name="page" value="homepage">
-    <label for="homepage">Home page (owned devices mark as read at once)</label><br>
-    <input type="radio" id="history" name="page" value="history">
-    <label for="history">History(each device will need to be open to mark as read)</label><br>
-    <br>	  <input type="submit" class="btn btn-success btn-xs" value="Save changes">
-<br> <br>
-
-  </form>
-<br>
-    <form action="settings.php"  method="post" role="form">
-
-<h3>Change Password</h3><br>
-        <label for="ex3">Current Password</label>
-		<input class="form-control" type="password" required name="currentpass">
-
-  <br>
-
-        <label for="ex3">New Password</label>
-		<input class="form-control" type="password" required name="newpass">
-
- <br>
-        <label for="ex3">Repeat Password</label>
-		<input class="form-control" type="password" required name="repeatnewpass">
-<br><button> Change Password</button><br><br>
-</form>
-
 <?php
 class MyDB extends SQLite3
 {
@@ -203,6 +170,61 @@ class MyDB extends SQLite3
         $this->open('database.db');
     }
 }
+// CHANGING NOTIFICATIONS
+if((isset($_POST['NTITLE'])) OR (isset($_POST['NMESSAGE']))){
+  $NTITLE = $_POST['NTITLE'];
+$NMESSAGE = $_POST['NMESSAGE'];
+  $db = new MyDB();
+  if(!$db){
+      echo $db->lastErrorMsg();
+  } else {
+    $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
+    $ret = $db->query($sql);
+    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+  echo $page;  echo $active_user;
+    $sql ='UPDATE USERS SET NTITLE="'.$NTITLE.'", NMESSAGE="'.$NMESSAGE.'" WHERE USERNAME="'.$active_user.'" ';
+    $ret = $db->exec($sql);
+    echo'<script>window.location = "settings.php"</script>';
+
+  }
+}
+  if(!$ret){
+      echo $db->lastErrorMsg();
+  } else {
+
+
+
+
+
+  }
+  $db->close();
+      chmod("database.db", 0600);
+
+}else{
+  $db = new MyDB();
+  if(!$db){
+      echo $db->lastErrorMsg();
+  } else {
+    $sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
+    $ret = $db->query($sql);
+    while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+      $N_TITLE=$row['NTITLE'];
+      $N_MESSAGE=$row['NMESSAGE'];
+      $readpage=$row['READPAGE'];
+
+  }
+}
+  if(!$ret){
+      echo $db->lastErrorMsg();
+  } else {
+
+
+
+  }
+  $db->close();
+      chmod("database.db", 0600);
+}
+// CHANGING PASSWORD
 if(isset($_POST['page'])){
   $page = $_POST['page'];
 
@@ -216,6 +238,8 @@ if(isset($_POST['page'])){
   echo $page;  echo $active_user;
     $sql ='UPDATE USERS SET READPAGE="'.$page.'" WHERE USERNAME="'.$active_user.'" ';
     $ret = $db->exec($sql);
+    echo'<script>window.location = "settings.php"</script>';
+
   }}
   if(!$ret){
       echo $db->lastErrorMsg();
@@ -223,8 +247,8 @@ if(isset($_POST['page'])){
   }
   $db->close();
       chmod("database.db", 0600);
-}
 
+}
 if((isset($_GET['error'])) and $_GET['error']=='1'){echo'Dont remember your password? Try again.';}
 if((isset($_GET['error'])) and $_GET['error']=='2'){echo'Passwords do not match.';}
 if((isset($_GET['error'])) and $_GET['error']=='3'){echo'Empty field.';}
@@ -272,7 +296,57 @@ echo'<script>window.location = "settings.php?error=4"</script>';
 
 
             chmod("database.db", 0600);}
+
 ?>
+
+
+
+
+      <div class="col-xl-4">
+
+<br><br> <br>
+<form action="settings.php"  method="post" role="form">
+<h3>Notifications</h3><br>
+<label for="NTITLE">Change the title of mobile notifications</label><br>
+<input type="text" id="NTITLE" name="NTITLE" value="<?php echo $N_TITLE; ?>">
+
+<label for="NMESSAGE">Change the notification message</label><br>
+<input type="text" id="NMESSAGE" name="NMESSAGE" value="<?php echo $N_MESSAGE; ?>">
+<br>
+<br>	  <input type="submit" class="btn btn-success btn-xs" value="Change notifications">
+<br> <br>
+
+</form><br>
+    <form action="settings.php"  method="post" role="form">
+    <h3>Mark as read</h3><br>
+      <p><h4>Select when a new event will be mark as seen:</h4></p>
+    <input type="radio" id="homepage" <?php if($readpage=='homepage'){echo'checked';}?> name="page" value="homepage">
+    <label for="homepage">Home page (owned devices mark as read at once)</label><br>
+    <input type="radio" id="history" <?php if($readpage=='history'){echo'checked';}?> name="page" value="history">
+    <label for="history">History (each device will need to be open to mark as read)</label><br>
+
+    <br>	  <input type="submit" class="btn btn-success btn-xs" value="Save changes">
+<br> <br>
+
+  </form>
+<br>
+    <form action="settings.php"  method="post" role="form">
+
+<h3>Change Password</h3><br>
+        <label for="ex3">Current Password</label>
+		<input class="form-control" type="password" required name="currentpass">
+
+  <br>
+
+        <label for="ex3">New Password</label>
+		<input class="form-control" type="password" required name="newpass">
+
+ <br>
+        <label for="ex3">Repeat Password</label>
+		<input class="form-control" type="password" required name="repeatnewpass">
+<br><button> Change Password</button><br><br>
+</form>
+
 
  </div>
 

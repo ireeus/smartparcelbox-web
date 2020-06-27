@@ -28,11 +28,10 @@ if(isset($_GET['smartbox'])){
             echo $db->lastErrorMsg();
         } else {
         }
-		$sql ='UPDATE DEVICES SET SIGNAL="'.$signal.'", DATE="'.$date.'" WHERE  DEVICE="'.$smartbox.'"';
+		$sql ='UPDATE DEVICES SET SIGNAL="'.$signal.'", DATE="'.$date.'", READ="1" WHERE  DEVICE="'.$smartbox.'"';
     $ret = $db->exec($sql);
-	$sql ='UPDATE DEVICES SET READ="1" WHERE  DEVICE="'.$smartbox.'"';
-    $ret = $db->exec($sql);
-    $sql ="INSERT INTO HISTORY (DATE,DEVICE,SIGNAL,STATUS)"."\n"."VALUES ('".$date."', '".$smartbox."', '".$signal."','DELIVERY');";
+
+    $sql ="INSERT INTO HISTORY (DATE,DEVICE,SIGNAL,STATUS,USERNAME)"."\n"."VALUES ('".$date."', '".$smartbox."', '".$signal."','DELIVERY', '".$existing_user."');";
     $ret = $db->exec($sql);
 
 
@@ -43,6 +42,35 @@ if(isset($_GET['smartbox'])){
         $db->close();
                chmod("database.db", 0600);
 }
+
+
+  $db = new MyDB();
+  if(!$db){   echo $db->lastErrorMsg();
+      } else {
+          $sql ='SELECT * from SHARED where DEVICE="'.$smartbox.'";';
+          $ret = $db->query($sql);
+          while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+          }
+      }
+      $ret = $db->exec($sql);
+      if(!$ret){
+          echo $db->lastErrorMsg();
+      } else {
+      }
+
+      $sql ='UPDATE SHARED SET SIGNAL="'.$signal.'", DATE="'.$date.'", READ="1" WHERE  DEVICE="'.$smartbox.'"';
+      $ret = $db->exec($sql);
+
+
+      if(!$ret){
+          echo $db->lastErrorMsg();
+           echo'error1';
+      $db->close();
+             chmod("database.db", 0600);
+}
+
+
+
 
 
 if($signal>=-50){$range='[l][l][l][l]';}
