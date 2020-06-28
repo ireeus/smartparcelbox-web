@@ -173,7 +173,10 @@ class MyDB extends SQLite3
 // CHANGING NOTIFICATIONS
 if((isset($_POST['NTITLE'])) OR (isset($_POST['NMESSAGE']))){
   $NTITLE = $_POST['NTITLE'];
-$NMESSAGE = $_POST['NMESSAGE'];
+  $NMESSAGE = $_POST['NMESSAGE'];
+  $NMAIL = $_POST['NMAIL'];
+
+
   $db = new MyDB();
   if(!$db){
       echo $db->lastErrorMsg();
@@ -182,7 +185,7 @@ $NMESSAGE = $_POST['NMESSAGE'];
     $ret = $db->query($sql);
     while($row = $ret->fetchArray(SQLITE3_ASSOC)){
   echo $page;  echo $active_user;
-    $sql ='UPDATE USERS SET NTITLE="'.$NTITLE.'", NMESSAGE="'.$NMESSAGE.'" WHERE USERNAME="'.$active_user.'" ';
+    $sql ='UPDATE USERS SET NTITLE="'.$NTITLE.'", NMESSAGE="'.$NMESSAGE.'", NMAIL="'.$NMAIL.'" WHERE USERNAME="'.$active_user.'" ';
     $ret = $db->exec($sql);
     echo'<script>window.location = "settings.php"</script>';
 
@@ -191,11 +194,6 @@ $NMESSAGE = $_POST['NMESSAGE'];
   if(!$ret){
       echo $db->lastErrorMsg();
   } else {
-
-
-
-
-
   }
   $db->close();
       chmod("database.db", 0600);
@@ -211,7 +209,7 @@ $NMESSAGE = $_POST['NMESSAGE'];
       $N_TITLE=$row['NTITLE'];
       $N_MESSAGE=$row['NMESSAGE'];
       $readpage=$row['READPAGE'];
-
+      $N_MAIL=$row['NMAIL'];
   }
 }
   if(!$ret){
@@ -299,9 +297,6 @@ echo'<script>window.location = "settings.php?error=4"</script>';
 
 ?>
 
-
-
-
       <div class="col-xl-4">
 
 <br><br> <br>
@@ -313,7 +308,13 @@ echo'<script>window.location = "settings.php?error=4"</script>';
 <label for="NMESSAGE">Change the notification message</label><br>
 <input type="text" id="NMESSAGE" name="NMESSAGE" value="<?php echo $N_MESSAGE; ?>">
 <br>
-<br>	  <input type="submit" class="btn btn-success btn-xs" value="Change notifications">
+<br>
+
+<label for="NMAIL"><input type="checkbox" id="NMAIL" name="NMAIL" <?php if($N_MAIL=='1'){echo'checked';} ?> value="1"> Send email notifications</label><br>
+
+<br>
+
+  <input type="submit" class="btn btn-success btn-xs" value="Save notification changes">
 <br> <br>
 
 </form><br>

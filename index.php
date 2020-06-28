@@ -267,8 +267,7 @@ elseif(isset($_POST['edit_shared_dev'])){
     <thead>
       <tr>
         <th>Description</th>
-        <th>Notifications e-mail</th>
-		<th> message</th>
+      
 <th></th>
       </tr>
     </thead>
@@ -285,15 +284,7 @@ elseif(isset($_POST['edit_shared_dev'])){
       <td><input type="hidden" value="'. $existing_device.'" name="edit_shared_device">
       <input type="text" value="'.$description.'" name="edit_shared_description">
       </td>
-      <td>
-      <font color="green"> ';
-      echo '<input type="text" value="'.$existing_mail.'" name="edit_shared_mail">';
-      echo'</font>
-      </td>
-      <td>';
-      echo '<input type="text" value="'.$message.'" name="edit_shared_message">';
-      echo'
-      </td>
+
       </tr>
 
       	  <input type="submit" class="btn btn-success btn-xl" value="Save changes">

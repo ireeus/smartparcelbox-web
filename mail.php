@@ -69,6 +69,23 @@ if(isset($_GET['smartbox'])){
       $db->close();
              chmod("database.db", 0600);
 }
+
+  $db = new MyDB();
+  if(!$db){   echo $db->lastErrorMsg();
+      } else {
+          $sql ='SELECT * from USERS where USERNAME="'.$existing_user.'";';
+          $ret = $db->query($sql);
+          while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+              $NMAIL=$row["NMAIL"];
+
+          }
+      }
+      $ret = $db->exec($sql);
+      if(!$ret){
+          echo $db->lastErrorMsg();
+          $db->close();
+      }
+if($NMAIL=='1'){
 // Ten skrypt musi byc wykonany tylko wtedy kiedy w ustawieniach zostanie zaznaczona funkcja
 $email_message_str = str_replace(" ", "%20", $email_message);
 $string = $mailing_gate.'?ID='.$existing_device.'&DEVICE='.$description.'&SIGNAL='.$signal.'&EMAIL='.$existing_mail.'&MESSAGE='.$email_message_str.'';
@@ -129,5 +146,5 @@ However if you return to the main page all notifications will be reset on page r
     }}
 else{
 //phpinfo();
-}
+}}
 ?>
