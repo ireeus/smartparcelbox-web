@@ -17,6 +17,13 @@ if(isset($_COOKIE['username'])){
 	if(!$db){
 		echo $db->lastErrorMsg();
 	} else {
+		//// ACCESSING USERS
+		$sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
+		$ret = $db->query($sql);
+		while($row = $ret->fetchArray(SQLITE3_ASSOC)){
+			$NTITLE=$row['NTITLE'];
+			$NMESSAGE=$row['NMESSAGE'];
+		}
 		//selecting the right user for the active cookie
      $sql ='SELECT * from DEVICES where USERNAME="'.$active_user.'";';
      $ret = $db->query($sql);
@@ -33,18 +40,13 @@ if(isset($_COOKIE['username'])){
        $date=$row['DATE'];
 			 $read=$row['READ'];
   	   $day = explode(' - ', $date);
+			 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			 if($i == 0){
 				 // in order to print the beginning of the json  the $state=1 is required and as soon as it prints the begining and middle the state needs changing to 0
 				 $state="1";
 			 }
 			 if($read==1){
-				//// ACCESSING USERS
-			 	$sql ='SELECT * from USERS where USERNAME="'.$active_user.'";';
-			 	$ret = $db->query($sql);
-				while($row = $ret->fetchArray(SQLITE3_ASSOC)){
-					$NTITLE=$row['NTITLE'];
-					$NMESSAGE=$row['NMESSAGE'];
-				}
+
 					////
 					// beginning of the json structure
 					// The title is pulled from the USERS database
@@ -54,12 +56,15 @@ if(isset($_COOKIE['username'])){
 					echo$JSON_PREFIX;
 					$date = str_replace("<br>", '\n', $date);
 
-					echo $NMESSAGE.' '.$date.' - '.$description.'\n';
 					$state="0";
 				}
 			}
 			$i++;
+			echo $NMESSAGE.' '.$date.' - '.$description.'\n';
+
 		}
+
+
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		//Accessing SHARED to find the device to print out
 		$sql ='SELECT * from SHARED where USERNAME="'.$active_user.'";';
